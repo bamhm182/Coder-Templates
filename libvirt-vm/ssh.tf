@@ -17,8 +17,8 @@ resource "ssh_resource" "example" {
     permissions = "0400"
   }
 
-  pre_commands [ 
+  pre_commands = [ 
     "mkdir -p ~/.config/coder",
     "chmod 0700 ~/.config/coder",
-  ];
+  ]
 }
