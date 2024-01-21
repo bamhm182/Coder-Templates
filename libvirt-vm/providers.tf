@@ -15,6 +15,9 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
+    ssh = {
+      source = "loafoe/ssh"
+    }
     tls = {
       source = "hashicorp/tls"
     }

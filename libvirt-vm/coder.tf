@@ -27,7 +27,7 @@ resource "coder_agent" "main" {
   }
 }
 
-resource "coder_app" "guacamole_ssh" {
+resource "coder_app" "guacamole_rdp" {
   agent_id = coder_agent.main.id
   count  = data.coder_workspace.me.start_count
   display_name = "RDP"

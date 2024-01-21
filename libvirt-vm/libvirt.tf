@@ -15,8 +15,6 @@ data "template_file" "user_data" {
   template = templatefile("${path.module}/cloud-init/${split("-", data.coder_parameter.baseline_image.value)[0]}/user-data.cfg", {
     password_hash      = htpasswd_password.user.sha512,
     authorized_keys    = chomp(tls_private_key.ssh_key.public_key_openssh),
-    coder_agent_url    = data.coder_workspace.me.access_url,
-    coder_agent_token  = coder_agent.main.token,
   })
 }
 
