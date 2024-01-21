@@ -15,7 +15,6 @@ data "template_file" "user_data" {
   template = templatefile("${path.module}/cloud-init/${split("-", data.coder_parameter.baseline_image.value)[0]}/user-data.cfg", {
     password_hash      = htpasswd_password.user.sha512,
     authorized_keys    = chomp(tls_private_key.ssh_key.public_key_openssh),
-    coder_agent_script = base64encode(coder_agent.main.init_script)
   })
 }
 
@@ -77,6 +76,23 @@ resource "libvirt_domain" "main" {
     source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}"
     target  = "out"
     readonly = false
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "install -d -m 0700 ~/.config/coder",
+      "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
+      "echo ${coder_agent.main.token} > ~/.config/coder/token",
+      "chmod 0400 ~/.config/coder/*"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "user"
+      host        = libvirt_domain.main[0].network_interface.0.addresses.0
+      private_key = tls_private_key.ssh_key.private_key_openssh
+      timeout     = "1m"
+    }
   }
 }
 
