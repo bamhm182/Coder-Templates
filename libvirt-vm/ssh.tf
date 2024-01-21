@@ -1,5 +1,6 @@
 resource "ssh_resource" "example" {
   host         = libvirt_domain.main[0].network_interface.0.addresses.0
+  count        = data.coder_workspace.me.start_count
   user         = "user"
   private_key = tls_private_key.ssh_key.private_key_openssh
 
