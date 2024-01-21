@@ -56,6 +56,6 @@ resource "coder_app" "guacamole_ssh" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.main[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql"))
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.main[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }

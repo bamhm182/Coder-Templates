@@ -26,3 +26,33 @@ resource "coder_agent" "main" {
     script       = "coder stat disk --path /home/user"
   }
 }
+
+resource "coder_app" "guacamole_ssh" {
+  agent_id = coder_agent.main.id
+  count  = data.coder_workspace.me.start_count
+  display_name = "RDP"
+  slug = "guacamolerdp"
+  icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
+  external = true
+  url = format(
+    "%s%s%s",
+    replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+    "/#/client/",
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_rdp.main[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+  )
+}
+
+resource "coder_app" "guacamole_ssh" {
+  agent_id = coder_agent.main.id
+  count  = data.coder_workspace.me.start_count
+  display_name = "SSH"
+  slug = "guacamolessh"
+  icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
+  external = true
+  url = format(
+    "%s%s%s",
+    replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+    "/#/client/",
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.main[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+  )
+}
