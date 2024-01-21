@@ -77,6 +77,23 @@ resource "libvirt_domain" "main" {
     target  = "out"
     readonly = false
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      "install -d -m 0700 ~/.config/coder",
+      "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
+      "echo ${coder_agent.main.token} > ~/.config/coder/token",
+      "chmod 0400 ~/.config/coder/*"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "user"
+      host        = libvirt_domain.main[0].network_interface.0.addresses.0
+      private_key = tls_private_key.ssh_key.private_key_openssh
+      timeout     = "1m"
+    }
+  }
 }
 
 resource "coder_metadata" "libvirt_domain_main" {
