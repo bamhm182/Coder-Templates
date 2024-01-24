@@ -39,7 +39,7 @@ resource "coder_agent" "main" {
   startup_script_timeout = 180
   startup_script         = <<-EOT
     set -e
-    /tmp/code-server/bin/code-server --auth none --port 13337 >/tmp/code-server.log 2>&1 &
+    /usr/bin/code-server --auth none --port 13337 >/tmp/code-server.log 2>&1 &
   EOT
 
   # These environment variables allow you to make Git commits right away after creating a
