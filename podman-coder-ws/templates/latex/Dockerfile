@@ -28,6 +28,6 @@ RUN apt-get update \
 
 USER ${USER}
 
-#RUN code-server --install-extension james-yu.latex-workshop
+RUN code-server --install-extension james-yu.latex-workshop
 
 WORKDIR /home/${USER}
