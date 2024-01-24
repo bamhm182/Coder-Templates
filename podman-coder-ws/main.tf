@@ -26,10 +26,12 @@ data "coder_parameter" "template" {
   option {
     name  = "Basic"
     value = "basic"
+    icon  = "/icon/code.svg"
   }
   option {
     name  = "LaTeX"
     value = "latex"
+    icon  = "/emojis/1f4d6.png"
   }
 }
 
@@ -42,10 +44,6 @@ resource "coder_agent" "main" {
     /usr/bin/code-server --auth none --port 13337 >/tmp/code-server.log 2>&1 &
   EOT
 
-  # These environment variables allow you to make Git commits right away after creating a
-  # workspace. Note that they take precedence over configuration defined in ~/.gitconfig!
-  # You can remove this block if you'd prefer to configure Git manually or using
-  # dotfiles. (see docs/dotfiles.md)
   env = {
     GIT_AUTHOR_NAME     = "${data.coder_workspace.me.owner}"
     GIT_COMMITTER_NAME  = "${data.coder_workspace.me.owner}"
