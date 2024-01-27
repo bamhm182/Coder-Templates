@@ -52,19 +52,20 @@ resource "coder_agent" "main" {
   }
 }
 
-resource "coder_app" "code-server" {
-  agent_id     = coder_agent.main.id
-  slug         = "code-server"
-  display_name = "code-server"
-  url          = "http://localhost:13337/?folder=/home/${data.coder_workspace.me.owner}"
-  icon         = "/icon/code.svg"
-  subdomain    = false
-  share        = "owner"
-
-  healthcheck {
-    url       = "http://localhost:13337/healthz"
-    interval  = 5
-    threshold = 6
+module "code-server" {
+  source = "registry.coder.com/modules/code-server/coder"
+  version = "1.0.0"
+  agent_id = coder_agent.main.id
+  extensions = (
+    data.coder_parameter.template.value == "latex" ?
+    [ "james-yu.latex-workshop", "anwar.papyrus-pdf" ] :
+      data.coder_parameter.template.value == "base" ?
+      [ "dracula-theme.theme-dracula" ] :
+      [ ]
+  )
+  folder = "/home/${data.coder_workspace.me.owner}"
+  settings = {
+    "workbench.colorTheme" = "Dark (Visual Studio)"
   }
 }
 

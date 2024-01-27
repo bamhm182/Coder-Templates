@@ -14,8 +14,6 @@ RUN apt-get update \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL https://code-server.dev/install.sh | sh
-
 RUN useradd --groups sudo --create-home --shell /bin/bash ${USER} \
     && echo "${USER} ALL=(ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER} \
     && chmod 0440 /etc/sudoers.d/${USER}
@@ -28,8 +26,4 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 USER ${USER}
-
-RUN code-server --install-extension james-yu.latex-workshop \
-    code-server --install-extension anwar.papyrus-pdf
-
 WORKDIR /home/${USER}
