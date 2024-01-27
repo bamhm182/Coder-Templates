@@ -29,6 +29,7 @@ RUN apt-get update \
 
 USER ${USER}
 
-RUN code-server --install-extension james-yu.latex-workshop
+RUN code-server --install-extension james-yu.latex-workshop \
+    code-server --install-extension anwar.papyrus-pdf
 
 WORKDIR /home/${USER}
