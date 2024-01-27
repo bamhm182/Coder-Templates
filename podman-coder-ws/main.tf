@@ -94,8 +94,7 @@ resource "docker_volume" "home_volume" {
 resource "docker_image" "main" {
   name = "coder-${data.coder_workspace.me.id}"
   build {
-    path = "./templates/"
-    dockerfile = "${data.coder_parameter.template.value}.Dockerfile"
+    context = "./templates/${data.coder_parameter.template.value}"
     build_args = {
       USER = data.coder_workspace.me.owner
     }
