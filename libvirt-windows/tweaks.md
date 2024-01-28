@@ -1,30 +1,32 @@
 <!--
-    https://github.com/rgl/terraform-libvirt-windows-example/blob/master/libvirt-domain.xsl
-
     This customizes a libvirt domain xml.
-    NB You can manually create a domain and them find the resulting domain xml at /etc/libvirt/qemu/*.xml.
-    NB You can test this transformation with, e.g.:
-        sudo xsltproc libvirt-domain.xsl /etc/libvirt/qemu/example.xml | sudo diff -u /etc/libvirt/qemu/example.xml - | vim -
-    See https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/examples/v0.12/xslt/nicmodel.xsl
-    See https://libvirt.org/formatdomain.html
+    From: https://github.com/rgl/terraform-libvirt-windows-example/blob/master/libvirt-domain.xsl
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
+  <!-- Copy all -->
   <xsl:template match="node()|@*">
     <xsl:copy>
       <xsl:apply-templates select="node()|@*"/>
     </xsl:copy>
   </xsl:template>
-  <xsl:tempalte match="node()|@*">
+  <!-- Set main disk bus to sata -->
+  <xsl:template match="/domain/devices/disk[@device='disk']/target/@bus">
     <xsl:attribute name="bus">
       <xsl:value-of select="'sata'"/>
     </xsl:attribute>
   </xsl:template>
+  <!-- Delete wwn element from main disk -->
+  <xsl:template match="/domain/devices/disk[@device='disk']/wwn">
+    <xsl:apply-templates/>
+  </xsl:template>
+  <!-- Set CDROM to SCSI instead of IDE -->
   <xsl:template match="/domain/devices/disk[@device='cdrom']/target/@bus">
     <xsl:attribute name="bus">
       <xsl:value-of select="'scsi'"/>
     </xsl:attribute>
   </xsl:template>
+  <!-- Add a Spice video connection -->
   <xsl:template match="/domain/devices">
     <xsl:copy>
       <xsl:apply-templates select="node()|@*"/>
