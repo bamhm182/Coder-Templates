@@ -2,7 +2,7 @@ data "coder_parameter" "baseline_image" {
   name         = "baseline_image"
   display_name = "Baseline image"
   description  = "Which Baseline would you like to use?"
-  default      = "nixos-ctf"
+  default      = "nixos-ctf-${data.coder_workspace.me.template_version}"
   type         = "string"
   mutable      = false
   option {
