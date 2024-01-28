@@ -9,6 +9,7 @@ RUN apt-get update \
     ca-certificates \
     curl \
     git \
+    ssh \
     sudo \
     vim \
     wget \

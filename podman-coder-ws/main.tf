@@ -52,6 +52,16 @@ resource "coder_agent" "main" {
   }
 }
 
+resource "coder_script" "personalize" {
+  agent_id     = coder_agent.main.id
+  script       = <<-EOT
+    coder dotfiles "ssh://git@git.lab.bytepen.com:2222/${data.coder_workspace.me.owner}/dotfiles.git" -y 2>&1 | tee -a ~/.dotfiles.log
+    EOT
+  display_name = "Dotfiles"
+  icon         = "/icon/dotfiles.svg"
+  run_on_start = true
+}
+
 module "code-server" {
   source = "registry.coder.com/modules/code-server/coder"
   version = "1.0.0"
