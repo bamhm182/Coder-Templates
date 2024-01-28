@@ -15,6 +15,16 @@ resource "coder_metadata" "libvirt_volume_root" {
 
 # ---
 
+resource "libvirt_cloudinit_disk" "example_cloudinit" {
+  name = "${lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}")}.iso"
+  meta_data = jsonencode({
+    "instance-id" : '12345',
+  })
+  user_data = data.template_cloudinit_config.example.rendered
+}
+
+# ---
+
 resource "libvirt_domain" "main" {
   name       = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}")
   count      = data.coder_workspace.me.start_count
@@ -23,6 +33,7 @@ resource "libvirt_domain" "main" {
   machine    = "q35"
   firmware   = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
   qemu_agent = false
+  cloudinit  = libvirt_cloudinit_disk.example_cloudinit.id
 
   cpu {
     mode = "host-passthrough"
@@ -46,6 +57,9 @@ resource "libvirt_domain" "main" {
     source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}"
     target  = "out"
     readonly = false
+  }
+  xml {
+    xslt = file("cdrom.md")
   }
 }
 
