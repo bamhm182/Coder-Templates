@@ -7,23 +7,15 @@ data "coder_parameter" "baseline_image" {
   mutable      = false
   option {
     name  = "NixOS (Base)"
-    value = "nixos-base"
+    value = "nixos-base-${data.coder_workspace.template_version}"
   }
   option {
     name  = "NixOS (CTF)"
-    value = "nixos-ctf"
+    value = "nixos-ctf-${data.coder_workspace.template_version}"
   }
   option {
     name  = "NixOS (Synack LP+)"
-    value = "nixos-synacklpp"
-  }
-  option {
-    name  = "Kali (CTF)"
-    value = "kali-ctf-20230524"
-  }
-  option {
-    name  = "Windows 11"
-    value = "windows11-20240115"
+    value = "nixos-synacklpp-${data.coder_workspace.template_version}"
   }
 }
 
