@@ -18,7 +18,7 @@ resource "coder_metadata" "libvirt_volume_root" {
 resource "libvirt_cloudinit_disk" "example_cloudinit" {
   name = "${lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}")}.iso"
   meta_data = jsonencode({
-    "instance-id" : '12345',
+    "instance-id" : "12345",
   })
   user_data = data.template_cloudinit_config.example.rendered
 }
