@@ -7,15 +7,15 @@ data "coder_parameter" "baseline_image" {
   mutable      = false
   option {
     name  = "NixOS (Base)"
-    value = "nixos-base-${data.coder_workspace.template_version}"
+    value = "nixos-base-${data.coder_workspace.me.template_version}"
   }
   option {
     name  = "NixOS (CTF)"
-    value = "nixos-ctf-${data.coder_workspace.template_version}"
+    value = "nixos-ctf-${data.coder_workspace.me.template_version}"
   }
   option {
     name  = "NixOS (Synack LP+)"
-    value = "nixos-synacklpp-${data.coder_workspace.template_version}"
+    value = "nixos-synacklpp-${data.coder_workspace.me.template_version}"
   }
 }
 
