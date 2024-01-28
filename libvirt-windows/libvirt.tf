@@ -20,7 +20,6 @@ resource "libvirt_cloudinit_disk" "example_cloudinit" {
   meta_data = jsonencode({
     "instance-id" : "12345",
   })
-  user_data = data.template_cloudinit_config.example.rendered
 }
 
 # ---
@@ -59,7 +58,7 @@ resource "libvirt_domain" "main" {
     readonly = false
   }
   xml {
-    xslt = file("cdrom.md")
+    xslt = file("tweaks.md")
   }
 }
 

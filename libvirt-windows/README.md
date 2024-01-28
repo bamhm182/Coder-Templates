@@ -8,9 +8,15 @@ verified: true
 tags: [windows, kvm, libvirt]
 ---
 
+# Work in Progress
+
+**WARNING**: This template is a work in progess. It currently does not work because the Windows VM only BSOD's.
+
 # Windows VM (libvirt)
 
 Create a Windows Virtual Machine with libvirt.
+
+You can find my notes about creating a Windows 11 QCOW2 image [here](https://github.com/bamhm182/WindowsVmCreator).
 
 ## Providers
 
