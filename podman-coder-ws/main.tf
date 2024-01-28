@@ -55,6 +55,8 @@ resource "coder_agent" "main" {
 resource "coder_script" "personalize" {
   agent_id     = coder_agent.main.id
   script       = <<-EOT
+    install -dm 0700 ~/.ssh
+    ssh-keyscan -p 2222 git.lab.bytepen.com >> ~/.ssh/known_hosts
     git clone "ssh://git@git.lab.bytepen.com:2222/${data.coder_workspace.me.owner}/dotfiles.git" ~/.config/coderv2/dotfiles 2>&1 | tee -a ~/.dotfiles.log
     bash ~/.config/coderv2/dotfiles/install.sh 2>&1 | tee -a ~/.dotfiles.log
     EOT
