@@ -21,7 +21,12 @@ resource "libvirt_domain" "main" {
   memory     = data.coder_parameter.ram_amount.value
   vcpu       = data.coder_parameter.cpu_count.value
   machine    = "q35"
-  qemu_agent = true
+  firmware   = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
+  qemu_agent = false
+
+  cpu {
+    mode = "host-passthrough"
+  }
 
   disk {
     volume_id = libvirt_volume.root[0].id
@@ -41,10 +46,6 @@ resource "libvirt_domain" "main" {
     source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}"
     target  = "out"
     readonly = false
-  }
-
-  xml {
-    xslt = file("cdrom.md")
   }
 }
 
