@@ -2,20 +2,12 @@ data "coder_parameter" "baseline_image" {
   name         = "baseline_image"
   display_name = "Baseline image"
   description  = "Which Baseline would you like to use?"
-  default      = "nixos-ctf-${data.coder_workspace.me.template_version}"
+  default      = "windows11-20240115"
   type         = "string"
   mutable      = false
   option {
-    name  = "NixOS (Base)"
-    value = "nixos-base-${data.coder_workspace.me.template_version}"
-  }
-  option {
-    name  = "NixOS (CTF)"
-    value = "nixos-ctf-${data.coder_workspace.me.template_version}"
-  }
-  option {
-    name  = "NixOS (Synack LP+)"
-    value = "nixos-synacklpp-${data.coder_workspace.me.template_version}"
+    name  = "Windows 11"
+    value = "windows11-20240115"
   }
 }
 
