@@ -44,7 +44,7 @@ resource "libvirt_domain" "main" {
   }
 
   xml {
-    xslt = file("cdrom.xsl")
+    xslt = file("cdrom.md")
   }
 }
 
