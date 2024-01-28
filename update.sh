@@ -9,6 +9,7 @@ setup() {
   SCRIPT_PATH=$(readlink -f "${BASH_SOURCE:-$0}")
   BASE_DIR=$(dirname "${SCRIPT_PATH}")
   TEMPLATES=$(find "${BASE_DIR}" -maxdepth 2 -name "main.tf" | awk -F'/' '{print $(NF-1)}')
+  TIMESTAMP=$(date '+%Y%m%d%H%M%S')
   [ -n "${1}" ] && TEMPLATES=${1}
 }
 
@@ -16,7 +17,7 @@ templates_push() {
   for template in ${TEMPLATES}; do
     banner "Updating ${template}"
     if [[ "${CODER_TEMPLATES}" == *"${template}"* ]]; then
-      coder template push --yes --activate --directory "${BASE_DIR}/${template}" ${template}
+      coder template push --yes --activate --name "${TIMESTAMP}" --directory "${BASE_DIR}/${template}" ${template}
       templates_edit ${template}
       templates_archive ${template}
     else
