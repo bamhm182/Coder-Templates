@@ -5,8 +5,9 @@ resource "guacamole_connection_rdp" "main" {
   parameters {
     hostname = libvirt_domain.main[0].network_interface.0.addresses.0
     port = 3389
-    username = "user"
-    password = random_password.user.result
+    username = "admin"
+    password = "password"
+    #password = random_password.user.result
     recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
     recording_auto_create_path = "true"
     resize_method = "reconnect"
