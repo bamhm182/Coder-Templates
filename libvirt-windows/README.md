@@ -1,16 +1,12 @@
 ---
-display_name: Windows VM (libvirt)
+display_name: Windows (libvirt)
 description: Create a Windows Virtual Machine with libvirt
 default_ttl: 24h
-icon: https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/qemu.svg
+icon: https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/windows.svg
 maintainer_github: bamhm182
 verified: true
 tags: [windows, kvm, libvirt]
 ---
-
-# Work in Progress
-
-**WARNING**: This template is a work in progess. It currently does not work because the Windows VM only BSOD's.
 
 # Windows VM (libvirt)
 

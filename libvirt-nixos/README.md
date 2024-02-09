@@ -1,8 +1,8 @@
 ---
-display_name: Virtual Machine (libvirt)
-description: Create a Virtual Machine with libvirt
+display_name: NixOS (libvirt)
+description: Create a NixOS VM with libvirt
 default_ttl: 24h
-icon: https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/qemu.svg
+icon: https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg
 maintainer_github: bamhm182
 verified: true
 tags: [linux, kvm, libvirt]
