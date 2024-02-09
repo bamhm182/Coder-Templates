@@ -5,16 +5,21 @@ data "coder_parameter" "baseline_image" {
   default      = "nixos-ctf"
   type         = "string"
   mutable      = false
+
   option {
-    name  = "NixOS (Base)"
+    name  = "Base"
     value = "nixos-base"
   }
   option {
-    name  = "NixOS (CTF)"
+    name  = "Browser"
+    value = "nixos-browser"
+  }
+  option {
+    name  = "CTF"
     value = "nixos-ctf"
   }
   option {
-    name  = "NixOS (Synack LP+)"
+    name  = "Synack LP+"
     value = "nixos-synacklpp"
   }
 }
@@ -26,32 +31,33 @@ data "coder_parameter" "vlan" {
   default = "clear"
   type = "string"
   mutable = true
+
   option {
-    name = "Clear"
+    name  = "Clear"
     value = "clear"
   }
   option {
-    name = "VPN1"
+    name  = "VPN1"
     value = "vpn1"
   }
   option {
-    name = "VPN2"
+    name  = "VPN2"
     value = "vpn2"
   }
   option {
-    name = "VPN3"
+    name  = "VPN3"
     value = "vpn3"
   }
   option {
-    name = "VPN4"
+    name  = "VPN4"
     value = "vpn4"
   }
   option {
-    name = "VPN5"
+    name  = "VPN5"
     value = "vpn5"
   }
   option {
-    name = "Experiment"
+    name  = "Experiment"
     value = "experiment"
   }
 }
@@ -64,6 +70,7 @@ data "coder_parameter" "cpu_count" {
   type         = "string"
   icon         = "/icon/memory.svg"
   mutable      = true
+
   option {
     name  = "1 CPU"
     value = "1"
@@ -73,22 +80,23 @@ data "coder_parameter" "cpu_count" {
     value = "2"
   }
   option {
-    name = "4 CPUs"
+    name  = "4 CPUs"
     value = "4"
   }
   option {
-    name = "8 CPUs"
+    name  = "8 CPUs"
     value = "8"
   }
 }
 
 data "coder_parameter" "ram_amount" {
-  name = "ram_amount"
+  name         = "ram_amount"
   display_name = "RAM Amount"
-  description = "How much RAM would you like?"
-  default = "8192"
-  type = "string"
-  mutable = true
+  description  = "How much RAM would you like?"
+  default      = "8192"
+  type         = "string"
+  mutable      = true
+
   option {
     name = "1 GB"
     value = "1024"
