@@ -1,6 +1,6 @@
 ---
 display_name: NixOS (libvirt)
-description: Create a NixOS VM with libvirt
+description: Create a NixOS Virtual Machine with libvirt
 default_ttl: 24h
 icon: https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg
 maintainer_github: bamhm182
@@ -10,7 +10,7 @@ tags: [linux, kvm, libvirt]
 
 # Virtual Machine (libvirt)
 
-Create a Virtual Machine with libvirt.
+Create a NixOS Virtual Machine with libvirt.
 
 ## Providers
 

@@ -31,8 +31,24 @@ data "coder_parameter" "vlan" {
     value = "clear"
   }
   option {
-    name = "VPN"
-    value = "vpn"
+    name = "VPN1"
+    value = "vpn1"
+  }
+  option {
+    name = "VPN2"
+    value = "vpn2"
+  }
+  option {
+    name = "VPN3"
+    value = "vpn3"
+  }
+  option {
+    name = "VPN4"
+    value = "vpn4"
+  }
+  option {
+    name = "VPN5"
+    value = "vpn5"
   }
   option {
     name = "Experiment"
