@@ -34,7 +34,7 @@ resource "coder_metadata" "libvirt_volume_root" {
 }
 
 resource "libvirt_volume" "home" {
-  name   = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-home.qcow2")
+  name   = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}.home.qcow2")
   pool   = "working"
   format = "qcow2"
   size   = 21474836480 # 20GB
