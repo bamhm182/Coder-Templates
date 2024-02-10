@@ -5,8 +5,10 @@ resource "coder_agent" "main" {
   arch         = "amd64"
 
   display_apps {
-    vs_code      = false
-    web_terminal = false
+    vscode          = false
+    vscode_insiders = false
+    web_terminal    = false
+    ssh_helper      = false
   }
 
   metadata {
