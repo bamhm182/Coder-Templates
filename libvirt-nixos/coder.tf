@@ -4,7 +4,7 @@ resource "coder_agent" "main" {
   os           = "linux"
   arch         = "amd64"
 
-  display_apps = {
+  display_apps {
     vs_code      = false
     web_terminal = false
   }
