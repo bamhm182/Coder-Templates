@@ -1,5 +1,5 @@
 resource "guacamole_connection_rdp" "main" {
-  name = "coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-RDP"
+  name = "${data.coder_workspace.me.name} Desktop (${data.coder_workspace.me.owner})"
   count  = data.coder_workspace.me.start_count
   parent_identifier = "ROOT"
   parameters {
@@ -31,7 +31,7 @@ resource "coder_metadata" "guacamole_connection_rdp_main" {
 # ---
 
 resource "guacamole_connection_ssh" "main" {
-  name = "coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-SSH"
+  name = "${data.coder_workspace.me.name} Terminal (${data.coder_workspace.me.owner})"
   count  = data.coder_workspace.me.start_count
   parent_identifier = "ROOT"
   parameters {
