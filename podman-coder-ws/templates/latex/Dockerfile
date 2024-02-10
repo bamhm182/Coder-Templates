@@ -22,7 +22,8 @@ RUN useradd --groups sudo --create-home --shell /bin/bash ${USER} \
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   latexmk \
-  texlive-latex-recommended \
+  #texlive-latex-recommended \
+  texlive-full \
   make \
   && rm -rf /var/lib/apt/lists/*
 
