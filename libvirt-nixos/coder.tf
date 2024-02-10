@@ -3,9 +3,11 @@ data "coder_workspace" "me" {}
 resource "coder_agent" "main" {
   os           = "linux"
   arch         = "amd64"
-  vs_code      = false
-  web_terminal = false
 
+  display_apps = {
+    vs_code      = false
+    web_terminal = false
+  }
 
   metadata {
     key          = "cpu"
@@ -14,6 +16,7 @@ resource "coder_agent" "main" {
     timeout      = 5
     script       = "coder stat cpu"
   }
+
   metadata {
     key          = "memory"
     display_name = "Memory Usage"
@@ -21,6 +24,7 @@ resource "coder_agent" "main" {
     timeout      = 5
     script       = "coder stat mem"
   }
+
   metadata {
     key          = "disk"
     display_name = "Home Usage"
