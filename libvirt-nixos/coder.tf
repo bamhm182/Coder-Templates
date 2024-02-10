@@ -1,8 +1,11 @@
 data "coder_workspace" "me" {}
 
 resource "coder_agent" "main" {
-  os   = "linux"
-  arch = "amd64"
+  os           = "linux"
+  arch         = "amd64"
+  vs_code      = false
+  web_terminal = false
+
 
   metadata {
     key          = "cpu"
@@ -28,12 +31,13 @@ resource "coder_agent" "main" {
 }
 
 resource "coder_app" "guacamole_rdp" {
-  agent_id = coder_agent.main.id
-  count  = data.coder_workspace.me.start_count
-  display_name = "RDP"
-  slug = "guacamolerdp"
-  icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
-  external = true
+  agent_id     = coder_agent.main.id
+  count        = data.coder_workspace.me.start_count
+  display_name = "Desktop"
+  slug         = "guacamolerdp"
+  icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
+  external     = true
+
   url = format(
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
@@ -43,12 +47,12 @@ resource "coder_app" "guacamole_rdp" {
 }
 
 resource "coder_app" "guacamole_ssh" {
-  agent_id = coder_agent.main.id
-  count  = data.coder_workspace.me.start_count
-  display_name = "SSH"
-  slug = "guacamolessh"
-  icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
-  external = true
+  agent_id     = coder_agent.main.id
+  count        = data.coder_workspace.me.start_count
+  display_name = "Terminal"
+  slug         = "guacamolessh"
+  icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
+  external     = true
   url = format(
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
