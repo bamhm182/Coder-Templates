@@ -68,7 +68,7 @@ resource "guacamole_user_group" "main" {
     guacamole_connection_ssh.main[0].identifier
   ]
   member_users = [
-    data.coder_workspace.me.owner_email
+    data.coder_workspace.me.owner
   ]
 }
 
