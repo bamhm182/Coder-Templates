@@ -3,6 +3,7 @@ data "coder_workspace" "me" {}
 resource "coder_agent" "main" {
   os           = "linux"
   arch         = "amd64"
+  count        = data.coder_workspace.me.start_count
 
   display_apps {
     vscode          = false
@@ -37,8 +38,8 @@ resource "coder_agent" "main" {
 }
 
 resource "coder_app" "guacamole_rdp" {
-  agent_id     = coder_agent.main.id
-  count        = data.coder_workspace.me.start_count
+  agent_id     = coder_agent.main[0].id
+  count        = length(guacamole_connection_rdp.main)
   display_name = "Desktop"
   slug         = "guacamolerdp"
   icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
@@ -53,8 +54,8 @@ resource "coder_app" "guacamole_rdp" {
 }
 
 resource "coder_app" "guacamole_ssh" {
-  agent_id     = coder_agent.main.id
-  count        = data.coder_workspace.me.start_count
+  agent_id     = coder_agent.main[0].id
+  count        = length(guacamole_connection_ssh.main)
   display_name = "Terminal"
   slug         = "guacamolessh"
   icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
