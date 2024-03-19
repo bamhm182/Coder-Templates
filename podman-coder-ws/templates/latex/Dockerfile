@@ -25,6 +25,7 @@ RUN apt-get update \
   #texlive-latex-recommended \
   texlive-full \
   make \
+  python3-pygments \
   && rm -rf /var/lib/apt/lists/*
 
 USER ${USER}

@@ -71,7 +71,7 @@ module "code-server" {
   agent_id = coder_agent.main.id
   extensions = (
     data.coder_parameter.template.value == "latex" ?
-    [ "james-yu.latex-workshop", "anwar.papyrus-pdf" ] :
+    [ "james-yu.latex-workshop", "anwar.papyrus-pdf", "streetsidesoftware.code-spell-checker" ] :
       data.coder_parameter.template.value == "base" ?
       [ "dracula-theme.theme-dracula" ] :
       [ ]
