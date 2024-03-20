@@ -19,6 +19,10 @@ data "coder_parameter" "baseline_image" {
     value = "nixos-ctf"
   }
   option {
+    name  = "OSINT"
+    value = "nixos-osint"
+  }
+  option {
     name  = "Synack LP+"
     value = "nixos-synacklpp"
   }
