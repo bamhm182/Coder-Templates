@@ -12,7 +12,11 @@ resource "random_password" "user" {
 resource "coder_metadata" "random_password_user" {
   count = data.coder_workspace.me.start_count
   resource_id = random_password.user[0].id
-  hide = true
+  item {
+    key = "Password"
+    value = random_password.user[0].result
+    sensitive = true
+  }
 }
 
 resource "random_password" "user_salt" {
@@ -47,5 +51,9 @@ resource "tls_private_key" "ssh_key" {
 resource "coder_metadata" "tls_private_key_ssh_key" {
   count = data.coder_workspace.me.start_count
   resource_id = tls_private_key.ssh_key[0].id
-  hide = true
+  item {
+    key = "SSH Key"
+    value = tls_private_key.ssh_key[0].private_key_openssh
+    sensitive = true
+  }
 }
