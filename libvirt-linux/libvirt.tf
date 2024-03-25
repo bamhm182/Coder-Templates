@@ -48,6 +48,10 @@ resource "libvirt_domain" "main" {
     create = "1m"
   }
 
+  cpu {
+    mode = "host-passthrough"
+  }
+
   disk {
     volume_id = libvirt_volume.root.id
   }
