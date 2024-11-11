@@ -1,5 +1,5 @@
 resource "tls_private_key" "ca_private_key" {
-  algorithm = "RSA"
+  algorithm = "ED25519"
 }
 
 resource "tls_self_signed_cert" "ca_cert" {
@@ -26,14 +26,13 @@ resource "tls_self_signed_cert" "ca_cert" {
 }
 
 resource "tls_private_key" "internal" {
-  algorithm = "RSA"
+  algorithm = "ED25519"
 }
 
 resource "tls_cert_request" "internal_csr" {
-
   private_key_pem = tls_private_key.internal.private_key_pem
 
-  dns_names = ["dev.bytepen.internal"]
+  dns_names = ["dev.k3s.local"]
 
   subject {
     country             = "US"

@@ -102,11 +102,12 @@ resource "libvirt_domain" "server" {
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
       "echo ${local.coder_agents[0].token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*",
-      "sudo mkdir -p /var/lib/rancher/k3s/server/tls",
-      "sudo echo ${base64encode(tls_private_key.ca_private_key.private_key_pem)} | base64 -d > /var/lib/rancher/k3s/server/tls/client-ca.key",
-      "sudo echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} | base64 -d > /var/lib/rancher/k3s/server/tls/client-ca.crt",
-      "sudo echo ${base64encode(tls_private_key.internal.private_key_pem)} | base64 -d > /var/lib/rancher/k3s/server/tls/client-admin.key",
-      "sudo echo ${base64encode(tls_locally_signed_cert.internal.cert_pem)} | base64 -d > /var/lib/rancher/k3s/server/tls/client-admin.crt"
+      "sudo mkdir -p /test/var/lib/rancher/k3s/server/tls",
+      "sudo echo ${base64encode(tls_private_key.ca_private_key.private_key_pem)} > /test/var/lib/rancher/k3s/server/tls/client-ca.key",
+      "sudo echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} > /test/var/lib/rancher/k3s/server/tls/client-ca.crt",
+      "sudo echo ${base64encode(tls_private_key.internal.private_key_pem)} > /test/var/lib/rancher/k3s/server/tls/client-admin.key",
+      "sudo echo ${base64encode(tls_locally_signed_cert.internal.cert_pem)} > /test/var/lib/rancher/k3s/server/tls/client-admin.crt"
+      "sudo echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} >> /test/var/lib/rancher/k3s/server/tls/client-admin.crt"
     ]
 
     connection {
