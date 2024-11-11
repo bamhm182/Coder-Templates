@@ -102,11 +102,12 @@ resource "libvirt_domain" "server" {
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
       "echo ${local.coder_agents[0].token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*",
-      "echo ${base64encode(tls_private_key.ca_private_key.private_key_pem)} | base64 -d > /tmp/client-ca.key",
-      "echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} | base64 -d > /tmp/client-ca.crt",
-      "echo ${base64encode(tls_private_key.internal.private_key_pem)} | base64 -d > /tmp/client-admin.key",
-      "echo ${base64encode(tls_locally_signed_cert.internal.cert_pem)} | base64 -d > /tmp/client-admin.crt",
-      "echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} | base64 -d >> /tmp/client-admin.crt"
+      "install -d -m 0700 ~/.config/k3s"
+      "echo ${base64encode(tls_private_key.ca_private_key.private_key_pem)} | base64 -d > ~/.config/k3s/client-ca.key",
+      "echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} | base64 -d > ~/.config/k3s/client-ca.crt",
+      "echo ${base64encode(tls_private_key.internal.private_key_pem)} | base64 -d > ~/.config/k3s/client-admin.key",
+      "echo ${base64encode(tls_locally_signed_cert.internal.cert_pem)} | base64 -d > ~/.config/k3s/client-admin.crt",
+      "echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} | base64 -d >> ~/.config/k3s/client-admin.crt"
     ]
 
     connection {
