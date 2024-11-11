@@ -31,7 +31,7 @@ data "template_file" "user_data" {
 
 resource "libvirt_volume" "root" {
   name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.qcow2")
-  count            = data.coder_workspace.me.start_count == 0 ? 0 : coder_parameter.node_count.value
+  count            = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
   pool             = "working"
   format           = "qcow2"
   base_volume_name = count.index == 0 ? "nixos-k8s-server.qcow2" : "nixos-k8s-agent.qcow2"
@@ -39,13 +39,13 @@ resource "libvirt_volume" "root" {
 }
 
 resource "coder_metadata" "libvirt_volume_root" {
-  count       = data.coder_workspace.me.start_count ? coder_parameter.node_count.value : 0
+  count       = data.coder_workspace.me.start_count ? data.coder_parameter.node_count.value : 0
   resource_id = libvirt_volume.root[count.index].id
   hide        = true
 }
 
 resource "libvirt_volume" "home" {
-  count            = coder_parameter.node_count.value
+  count            = data.coder_parameter.node_count.value
   name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.home.qcow2")
   pool             = "working"
   format           = "qcow2"
@@ -54,7 +54,7 @@ resource "libvirt_volume" "home" {
 }
 
 resource "coder_metadata" "libvirt_volume_home" {
-  count       = coder_parameter.node_count.value
+  count       = data.coder_parameter.node_count.value
   resource_id = libvirt_volume.home[count.index].id
   hide        = true
 }
@@ -76,7 +76,7 @@ resource "libvirt_network" "k3snet" {
 
 resource "libvirt_domain" "node" {
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}")
-  count      = data.coder_workspace.me.start_count ? coder_parameter.node_count.value : 0
+  count      = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
   qemu_agent = true
@@ -135,7 +135,7 @@ resource "libvirt_domain" "node" {
 }
 
 resource "coder_metadata" "libvirt_domain_node" {
-  count       = data.coder_workspace.me.start_count == 0 ? 0 : coder_parameter.node_count.value
+  count       = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
   resource_id = libvirt_domain.node[count.index].id
   hide        = true
 }
