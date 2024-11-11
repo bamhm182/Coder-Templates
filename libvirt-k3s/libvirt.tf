@@ -106,7 +106,7 @@ resource "libvirt_domain" "server" {
       "sudo echo ${base64encode(tls_private_key.ca_private_key.private_key_pem)} > /test/var/lib/rancher/k3s/server/tls/client-ca.key",
       "sudo echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} > /test/var/lib/rancher/k3s/server/tls/client-ca.crt",
       "sudo echo ${base64encode(tls_private_key.internal.private_key_pem)} > /test/var/lib/rancher/k3s/server/tls/client-admin.key",
-      "sudo echo ${base64encode(tls_locally_signed_cert.internal.cert_pem)} > /test/var/lib/rancher/k3s/server/tls/client-admin.crt"
+      "sudo echo ${base64encode(tls_locally_signed_cert.internal.cert_pem)} > /test/var/lib/rancher/k3s/server/tls/client-admin.crt",
       "sudo echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} >> /test/var/lib/rancher/k3s/server/tls/client-admin.crt"
     ]
 
