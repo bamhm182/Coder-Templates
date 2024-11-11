@@ -112,15 +112,15 @@ resource "libvirt_domain" "node" {
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
-      "echo ${local.coder_agents[count.index].token} > ~/.config/coder/token",
+      "echo ${local.coder_agents[0].token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*"
     ]
 
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.node[count.index].network_interface.0.addresses.0
-      private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+      host        = libvirt_domain.node[0].network_interface.0.addresses.0
+      private_key = tls_private_key.ssh_key[0].private_key_openssh
       timeout     = "1m"
     }
   }
