@@ -50,7 +50,7 @@ resource "coder_app" "guacamole_ssh" {
   count  = data.coder_workspace.me.start_count
   display_name = "Guacamole (SSH)"
   slug = "guacamolessh"
-  icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
+  icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/guacamole.svg"
   external = true
   url = format(
     "%s%s%s",

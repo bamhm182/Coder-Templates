@@ -17,6 +17,7 @@ templates_push() {
   for template in ${TEMPLATES}; do
     banner "Updating ${template}"
     if [[ "${CODER_TEMPLATES}" == *"${template}"* ]]; then
+      echo Command: coder template push --yes --activate --name "${TIMESTAMP}" --directory "${BASE_DIR}/${template}" ${template}
       coder template push --yes --activate --name "${TIMESTAMP}" --directory "${BASE_DIR}/${template}" ${template}
       templates_edit ${template}
       templates_archive ${template}
@@ -39,7 +40,7 @@ templates_edit() {
   [[ -n "${description}" ]] && args+=("--description" "${description}")
   [[ -n "${default_ttl}" ]] && args+=("--default-ttl" "${default_ttl}")
   [[ -n "${icon}" ]] && args+=("--icon" "${icon}")
-  echo coder template edit "${args[@]}" "${1}"
+  echo Command: coder template edit "${args[@]}" "${1}"
   coder template edit "${args[@]}" "${1}"
   unset display_name description default_ttl icon
 }

@@ -8,12 +8,12 @@ data "coder_parameter" "droplet_image" {
   option {
     name  = "AlmaLinux 9"
     value = "almalinux-9-x64"
-    icon  = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/almalinux.svg"
+    icon  = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/almalinux.svg"
   }
   option {
     name  = "AlmaLinux 8"
     value = "almalinux-8-x64"
-    icon  = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/almalinux.svg"
+    icon  = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/almalinux.svg"
   }
   option {
     name  = "CentOS Stream 9"
