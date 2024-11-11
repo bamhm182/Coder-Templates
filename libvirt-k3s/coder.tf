@@ -4,13 +4,13 @@ data "coder_workspace_owner" "me" {}
 
 locals {
   coder_agents = [
-    coder_agent.node0,
-    coder_agent.node1,
-    coder_agent.node2
+    coder_agent.server,
+    coder_agent.agent0,
+    coder_agent.agent1
   ]
 }
 
-resource "coder_agent" "node0" {
+resource "coder_agent" "server" {
   os           = "linux"
   arch         = "amd64"
 
@@ -46,7 +46,7 @@ resource "coder_agent" "node0" {
   }
 }
 
-resource "coder_agent" "node1" {
+resource "coder_agent" "agent0" {
   os           = "linux"
   arch         = "amd64"
 
@@ -82,7 +82,7 @@ resource "coder_agent" "node1" {
   }
 }
 
-resource "coder_agent" "node2" {
+resource "coder_agent" "agent1" {
   os           = "linux"
   arch         = "amd64"
 

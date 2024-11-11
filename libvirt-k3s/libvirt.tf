@@ -119,9 +119,9 @@ resource "libvirt_domain" "server" {
   }
 }
 
-resource "libvirt_domain" "node" {
+resource "libvirt_domain" "agent" {
   depends_on = [ libvirt_domain.server ]
-  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-agent${count.index}")
+  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-agent-${count.index}")
   count      = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents) - 1
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
@@ -171,15 +171,9 @@ resource "libvirt_domain" "node" {
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.node[count.index].network_interface.0.addresses.0
+      host        = libvirt_domain.agent[count.index].network_interface.0.addresses.0
       private_key = tls_private_key.ssh_key[count.index].private_key_openssh
       timeout     = "1m"
     }
   }
-}
-
-resource "coder_metadata" "libvirt_domain_node0" {
-  count       = data.coder_workspace.me.start_count
-  resource_id = libvirt_domain.node[0].id
-  hide        = true
 }
