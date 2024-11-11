@@ -23,7 +23,7 @@ data "template_file" "user_data" {
 
 resource "libvirt_volume" "root" {
   name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.qcow2")
-  count            = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
+  count            = data.coder_workspace.me.start_count == 0 ? 0 : list(local.coder_agents)
   pool             = "working"
   format           = "qcow2"
   base_volume_name = count.index == 0 ? "nixos-k3s-server.qcow2" : "nixos-k3s-agent.qcow2"
@@ -37,7 +37,7 @@ resource "coder_metadata" "libvirt_volume_root" {
 }
 
 resource "libvirt_volume" "home" {
-  count            = data.coder_parameter.node_count.value
+  count            = list(local.coder_agents)
   name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.home.qcow2")
   pool             = "working"
   format           = "qcow2"
@@ -68,7 +68,7 @@ resource "libvirt_network" "k3snet" {
 
 resource "libvirt_domain" "node" {
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}")
-  count      = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
+  count      = data.coder_workspace.me.start_count == 0 ? 0 : list(local.coder_agents)
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
   qemu_agent = true
@@ -112,22 +112,34 @@ resource "libvirt_domain" "node" {
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
-      "echo ${coder_agent.node0.token} > ~/.config/coder/token",
+      "echo ${local.coder_agents[count.index].token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*"
     ]
 
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.node[0].network_interface.0.addresses.0
-      private_key = tls_private_key.ssh_key[0].private_key_openssh
+      host        = libvirt_domain.node[count.index].network_interface.0.addresses.0
+      private_key = tls_private_key.ssh_key[count.index].private_key_openssh
       timeout     = "1m"
     }
   }
 }
 
-resource "coder_metadata" "libvirt_domain_node" {
+resource "coder_metadata" "libvirt_domain_node0" {
   count       = data.coder_workspace.me.start_count
   resource_id = libvirt_domain.node[0].id
+  hide        = true
+}
+
+resource "coder_metadata" "libvirt_domain_node1" {
+  count       = data.coder_workspace.me.start_count
+  resource_id = libvirt_domain.node[1].id
+  hide        = true
+}
+
+resource "coder_metadata" "libvirt_domain_node2" {
+  count       = data.coder_workspace.me.start_count
+  resource_id = libvirt_domain.node[2].id
   hide        = true
 }

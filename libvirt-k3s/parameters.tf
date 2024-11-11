@@ -1,20 +1,3 @@
-data "coder_parameter" "node_count" {
-  name      = "node_count"
-  display_name = "Node Count"
-  description  = "Number of Nodes in the K3s Cluster"
-  default      = "2"
-  type         = "number"
-  icon         = "/icon/widgets.svg"
-  mutable      = true
-  order        = 0
-
-  validation {
-    min       = 1
-    max       = 5
-    monotonic = "increasing"
-  }
-}
-
 data "coder_parameter" "cpu_count" {
   name         = "cpu_count"
   display_name = "CPU Count"
@@ -23,7 +6,7 @@ data "coder_parameter" "cpu_count" {
   type         = "number"
   icon         = "/icon/memory.svg"
   mutable      = true
-  order        = 1
+  order        = 0
 
   validation {
     min       = 1
@@ -40,7 +23,7 @@ data "coder_parameter" "ram_amount" {
   type         = "number"
   icon         = "/icon/container.svg"
   mutable      = true
-  order        = 2
+  order        = 1
 
   validation {
     min       = 1
