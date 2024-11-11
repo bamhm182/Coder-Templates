@@ -4,6 +4,10 @@ terraform {
       source  = "coder/coder"
       version = "1.0.4"
     }
+    guacamole = {
+      source = "bamhm182/guacamole"
+      version = "1.4.2"
+    }
     htpasswd = {
       source  = "loafoe/htpasswd"
       version = "1.2.1"
@@ -24,4 +28,5 @@ terraform {
 }
 
 provider "coder" {}
+provider "guacamole" {}
 provider "libvirt" {}

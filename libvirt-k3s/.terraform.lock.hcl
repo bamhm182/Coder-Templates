@@ -1,6 +1,28 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/bamhm182/guacamole" {
+  version     = "1.4.2"
+  constraints = "1.4.2"
+  hashes = [
+    "h1:a3c30fAMu1zlCTsTPFRR2ygx+aVK0m9Cg9S3+tC03/c=",
+    "zh:0b2a5c0f7a7158c753b1dcd5ae7307aa2b296eaa55829868fe878e278768e926",
+    "zh:2564e3053375fefe30e3afee9db080a8c3ab75318117315eed9dc3e32d4d95ba",
+    "zh:5c5ee1dce789063a41cec26983501ea503a518f8488f04d1ff364a25f4802eb6",
+    "zh:60827bead0021c8872fdddfce495cc3bbe3e305429d0ee89c9e6ce4a8c831a80",
+    "zh:73274bcd3618dea9fa2d63ed5feb916b90db9053e239cea2bdf2777b5646e2d4",
+    "zh:77ea4d207a5bdb72d354ea018942e83a6cb5f31399f59dd30565de4ec97d54fe",
+    "zh:97a135798b4a5ef525be943873bbf36b82c5dfb01b36db5b796fec867602b6dc",
+    "zh:99040af96972aebc96e3e593517f031f2c3201e776af0edcba3b20f5fe0186a3",
+    "zh:a696222f313066f95468cc69bb3a769ca996c105822870bce2cf00c96c99e784",
+    "zh:b1561fc5c536af2d9a1896ef6e00f22d8c3b38230d489dce782deda32c2e5ad8",
+    "zh:d0aee292f405d8dab7353fc31cb05f760ea57736a61d948767b7790a4c2b80c6",
+    "zh:d492be1945ec91de6e8c2562ab321ccaea67025c606b0e169425a49b6f493298",
+    "zh:f1613f37e42e27506b4c4bc26832bf5cfd49b9fe1e0d7fe2c0d2a4e976968693",
+    "zh:fa3d4c335e5c5b8da3dfd2a9e82159462192033e8ccbd0155feadacd261545fa",
+  ]
+}
+
 provider "registry.terraform.io/coder/coder" {
   version     = "1.0.4"
   constraints = "1.0.4"
