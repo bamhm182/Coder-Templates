@@ -122,7 +122,7 @@ resource "libvirt_domain" "server" {
 resource "libvirt_domain" "node" {
   depends_on = [ libvirt_domain.server ]
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-agent${count.index}")
-  count      = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents - 1)
+  count      = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents) - 1
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
   qemu_agent = true
