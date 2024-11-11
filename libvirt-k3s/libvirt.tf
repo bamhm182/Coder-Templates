@@ -135,7 +135,7 @@ resource "libvirt_domain" "node" {
 }
 
 resource "coder_metadata" "libvirt_domain_node" {
-  count       = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
-  resource_id = libvirt_domain.node[count.index].id
+  count       = data.coder_workspace.me.start_count
+  resource_id = libvirt_domain.node[0].id
   hide        = true
 }
