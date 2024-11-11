@@ -99,7 +99,7 @@ resource "libvirt_domain" "node" {
   }
 
   network_interface {
-    macvtap        = data.coder_parameter.vlan.value
+    macvtap        = "clear"
     wait_for_lease = true
   }
 
