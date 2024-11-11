@@ -39,7 +39,7 @@ resource "libvirt_volume" "root" {
 }
 
 resource "coder_metadata" "libvirt_volume_root" {
-  count       = data.coder_workspace.me.start_count ? coder_parameter.node_count.value 0
+  count       = data.coder_workspace.me.start_count ? coder_parameter.node_count.value : 0
   resource_id = libvirt_volume.root[count.index].id
   hide        = true
 }
