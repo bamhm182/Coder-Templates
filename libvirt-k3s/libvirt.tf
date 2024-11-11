@@ -119,8 +119,8 @@ resource "libvirt_domain" "node" {
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.node[0].network_interface.0.addresses.0
-      private_key = tls_private_key.ssh_key[0].private_key_openssh
+      host        = libvirt_domain.node[count.index].network_interface.0.addresses.0
+      private_key = tls_private_key.ssh_key[count.index].private_key_openssh
       timeout     = "1m"
     }
   }
