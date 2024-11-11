@@ -8,7 +8,7 @@ resource "null_resource" "iso_deps" {
 resource "libvirt_cloudinit_disk" "init" {
   count      = data.coder_workspace.me.start_count
   depends_on = [ null_resource.iso_deps ]
-  name       = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-init.iso")
+  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-init.iso")
   user_data  = data.template_file.user_data[0].rendered
   pool       = "working"
 }
@@ -23,15 +23,15 @@ resource "coder_metadata" "libvirt_cloudinit_disk_init" {
 
 data "template_file" "user_data" {
   count             = data.coder_workspace.me.start_count
-  template          = templatefile("${path.module}/cloud-init/${split("-", data.coder_parameter.baseline_image.value)[0]}/user-data.cfg", {
+  template          = templatefile("${path.module}/cloud-init/nixos/user-data.cfg", {
     password_hash   = htpasswd_password.user[0].sha512,
     authorized_keys = chomp(tls_private_key.ssh_key[0].public_key_openssh),
   })
 }
 
 resource "libvirt_volume" "root" {
-  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-k3s-${count.index}.qcow2")
-  count            = data.coder_workspace.me.start_count == 0 ? 0 : var.node_count
+  name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.qcow2")
+  count            = data.coder_workspace.me.start_count == 0 ? 0 : coder_parameter.node_count.value
   pool             = "working"
   format           = "qcow2"
   base_volume_name = count.index == 0 ? "nixos-k8s-server.qcow2" : "nixos-k8s-agent.qcow2"
@@ -39,14 +39,14 @@ resource "libvirt_volume" "root" {
 }
 
 resource "coder_metadata" "libvirt_volume_root" {
-  count       = data.coder_workspace.me.start_count ? var.node_count: 0
+  count       = data.coder_workspace.me.start_count ? coder_parameter.node_count.value 0
   resource_id = libvirt_volume.root[count.index].id
   hide        = true
 }
 
 resource "libvirt_volume" "home" {
-  count            = var.node_count
-  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-k3s-${count.index}.home.qcow2")
+  count            = coder_parameter.node_count.value
+  name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.home.qcow2")
   pool             = "working"
   format           = "qcow2"
   base_volume_name = "home.ext4.qcow2"
@@ -54,7 +54,7 @@ resource "libvirt_volume" "home" {
 }
 
 resource "coder_metadata" "libvirt_volume_home" {
-  count       = var.node_count
+  count       = coder_parameter.node_count.value
   resource_id = libvirt_volume.home[count.index].id
   hide        = true
 }
@@ -62,7 +62,7 @@ resource "coder_metadata" "libvirt_volume_home" {
 # ---
 
 resource "libvirt_network" "k3snet" {
-  name      = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-k3snet")
+  name      = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3snet")
   count     = data.coder_workspace.me.start_count
   mode      = "nat"
   domain    = "k3s.local"
@@ -75,8 +75,8 @@ resource "libvirt_network" "k3snet" {
 }
 
 resource "libvirt_domain" "node" {
-  name       = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-k3s-${count.index}")
-  count      = data.coder_workspace.me.start_count ? var.node_count : 0
+  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}")
+  count      = data.coder_workspace.me.start_count ? coder_parameter.node_count.value : 0
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
   qemu_agent = true
@@ -110,7 +110,7 @@ resource "libvirt_domain" "node" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}"
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}"
     target  = "out"
     readonly = false
   }
@@ -135,7 +135,7 @@ resource "libvirt_domain" "node" {
 }
 
 resource "coder_metadata" "libvirt_domain_node" {
-  count       = data.coder_workspace.me.start_count == 0 ? 0 : var.node_count
-  resource_id = libvirt_domain.main[count.index].id
+  count       = data.coder_workspace.me.start_count == 0 ? 0 : coder_parameter.node_count.value
+  resource_id = libvirt_domain.node[count.index].id
   hide        = true
 }

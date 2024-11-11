@@ -1,9 +1,11 @@
 data "coder_workspace" "me" {}
 
+data "coder_workspace_owner" "me" {}
+
 resource "coder_agent" "main" {
   os           = "linux"
   arch         = "amd64"
-  count        = data.coder_workspace.me.start_count == 0 ? 0 : var.node_count
+  count        = data.coder_workspace.me.start_count == 0 ? 0 : coder_parameter.node_count.value
 
   display_apps {
     vscode          = false
