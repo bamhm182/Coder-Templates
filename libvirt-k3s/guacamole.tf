@@ -48,7 +48,7 @@ resource "guacamole_connection_kubernetes" "server" {
   parent_identifier = "ROOT"
   parameters {
     hostname = libvirt_domain.server[0].network_interface.0.addresses.0
-    port = 6433
+    port = 6443
     use_ssl = true
     ca_cert = tls_self_signed_cert.ca_cert.cert_pem
     client_cert = tls_locally_signed_cert.internal.cert_pem
