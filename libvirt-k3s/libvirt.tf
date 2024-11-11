@@ -66,9 +66,9 @@ resource "libvirt_network" "k3snet" {
   }
 }
 
-resource "libvirt_domain" "node" {
-  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}")
-  count      = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents)
+resource "libvirt_domain" "server" {
+  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-server")
+  count      = data.coder_workspace.me.start_count
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
   qemu_agent = true
@@ -79,11 +79,11 @@ resource "libvirt_domain" "node" {
   }
 
   disk {
-    volume_id = libvirt_volume.root[count.index].id
+    volume_id = libvirt_volume.root[0].id
   }
 
   disk {
-    volume_id = libvirt_volume.home[count.index].id
+    volume_id = libvirt_volume.home[1].id
   }
 
   boot_device {
@@ -102,7 +102,7 @@ resource "libvirt_domain" "node" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-0"
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-server"
     target  = "out"
     readonly = false
   }
@@ -119,8 +119,69 @@ resource "libvirt_domain" "node" {
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.node[count.index].network_interface.0.addresses.0
-      private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+      host        = libvirt_domain.node[0].network_interface.0.addresses.0
+      private_key = tls_private_key.ssh_key[0].private_key_openssh
+      timeout     = "1m"
+    }
+  }
+}
+
+resource "libvirt_domain" "node" {
+  depends_on = [ libvirt_domain.server ]
+  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}")
+  count      = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents - 1)
+  memory     = (data.coder_parameter.ram_amount.value * 1024)
+  vcpu       = data.coder_parameter.cpu_count.value
+  qemu_agent = true
+  cloudinit  = libvirt_cloudinit_disk.init[0].id
+
+  timeouts {
+    create = "1m"
+  }
+
+  disk {
+    volume_id = libvirt_volume.root[count.index + 1].id
+  }
+
+  disk {
+    volume_id = libvirt_volume.home[count.index + 1].id
+  }
+
+  boot_device {
+    dev = [ "hd" ]
+  }
+
+  network_interface {
+    macvtap        = "clear"
+    wait_for_lease = true
+  }
+
+  network_interface {
+    network_id     = libvirt_network.k3snet[0].id
+    addresses      = [ "10.3.3.${10 + count.index + 1}" ]
+    wait_for_lease = false
+  }
+
+  filesystem {
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-server"
+    target  = "out"
+    readonly = false
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "install -d -m 0700 ~/.config/coder",
+      "rm ~/.config/coder/*",
+      "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
+      "echo ${local.coder_agents[count.index + 1].token} > ~/.config/coder/token",
+      "chmod 0600 ~/.config/coder/*"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "user"
+      host        = libvirt_domain.node[count.index + 1].network_interface.0.addresses.0
+      private_key = tls_private_key.ssh_key[count.index + 1].private_key_openssh
       timeout     = "1m"
     }
   }
