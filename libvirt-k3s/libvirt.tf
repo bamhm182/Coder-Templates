@@ -23,7 +23,7 @@ data "template_file" "user_data" {
 
 resource "libvirt_volume" "root" {
   name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.qcow2")
-  count            = data.coder_workspace.me.start_count == 0 ? 0 : list(local.coder_agents)
+  count            = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents)
   pool             = "working"
   format           = "qcow2"
   base_volume_name = count.index == 0 ? "nixos-k3s-server.qcow2" : "nixos-k3s-agent.qcow2"
@@ -37,7 +37,7 @@ resource "coder_metadata" "libvirt_volume_root" {
 }
 
 resource "libvirt_volume" "home" {
-  count            = list(local.coder_agents)
+  count            = length(local.coder_agents)
   name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}.home.qcow2")
   pool             = "working"
   format           = "qcow2"
@@ -68,7 +68,7 @@ resource "libvirt_network" "k3snet" {
 
 resource "libvirt_domain" "node" {
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-${count.index}")
-  count      = data.coder_workspace.me.start_count == 0 ? 0 : list(local.coder_agents)
+  count      = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents)
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
   qemu_agent = true
