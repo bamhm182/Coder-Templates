@@ -31,7 +31,7 @@ resource "coder_app" "guacamole_ssh_server" {
   count = length(guacamole_connection_ssh.server)
   display_name = "SSH Terminal"
   slug = "guacsshserver"
-  icon = "/icons/guacamole.svg"
+  icon = "/icon/apache-guacamole.svg"
   external = true
 
   url = format(
@@ -74,7 +74,7 @@ resource "coder_app" "guacamole_kubernetes_server" {
   count = length(guacamole_connection_kubernetes.server)
   display_name = "Kubernetes Terminal"
   slug = "guack8sserver"
-  icon = "/icons/guacamole.svg"
+  icon = "/icon/apache-guacamole.svg"
   external = true
 
   url = format(
@@ -118,7 +118,7 @@ resource "coder_app" "guacamole_ssh_agent0" {
   count = length(guacamole_connection_ssh.agent0)
   display_name = "SSH Terminal"
   slug = "guacsshagent0"
-  icon = "/icons/guacamole.svg"
+  icon = "/icon/apache-guacamole.svg"
   external = true
 
   url = format(
@@ -162,7 +162,7 @@ resource "coder_app" "guacamole_ssh_agent1" {
   count = length(guacamole_connection_ssh.agent1)
   display_name = "SSH Terminal"
   slug = "guacsshagent1"
-  icon = "/icons/guacamole.svg"
+  icon = "/icon/apache-guacamole.svg"
   external = true
 
   url = format(
