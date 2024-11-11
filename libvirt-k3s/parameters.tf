@@ -34,13 +34,13 @@ data "coder_parameter" "ram_amount" {
   name         = "ram_amount"
   display_name = "RAM Amount"
   description  = "Amount of RAM per node (in GB)"
-  default      = "0.5"
+  default      = "1"
   type         = "number"
   icon         = "/icon/container.svg"
   mutable      = true
 
   validation {
-    min       = 0
+    min       = 1
     max       = 4
     monotonic = "increasing"
   }
