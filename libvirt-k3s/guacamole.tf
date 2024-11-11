@@ -49,7 +49,10 @@ resource "guacamole_connection_kubernetes" "server" {
   parameters {
     hostname = libvirt_domain.server[0].network_interface.0.addresses.0
     port = 6433
-    ignore_cert = true
+    use_ssl = true
+    ca_cert = tls_self_signed_cert.ca_cert.cert_pem
+    client_cert = tls_locally_signed_cert.internal.cert_pem
+    client_key = tls_private_key.internal.private_key_pem
     recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
     recording_auto_create_path = "true"
   }
