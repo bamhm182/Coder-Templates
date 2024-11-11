@@ -39,8 +39,8 @@ resource "libvirt_volume" "root" {
 }
 
 resource "coder_metadata" "libvirt_volume_root" {
-  count       = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
-  resource_id = libvirt_volume.root[count.index].id
+  count       = data.coder_workspace.me.start_count
+  resource_id = libvirt_volume.root[0].id
   hide        = true
 }
 
@@ -54,8 +54,8 @@ resource "libvirt_volume" "home" {
 }
 
 resource "coder_metadata" "libvirt_volume_home" {
-  count       = data.coder_parameter.node_count.value
-  resource_id = libvirt_volume.home[count.index].id
+  count       = data.coder_workspace.me.start_count
+  resource_id = libvirt_volume.home[0].id
   hide        = true
 }
 
