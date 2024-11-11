@@ -27,7 +27,7 @@ resource "coder_metadata" "guacamole_connection_ssh_server" {
 }
 
 resource "coder_app" "guacamole_ssh_server" {
-  agent_id = coder_agent.server[0].id
+  agent_id = coder_agent.server.id
   count = length(guacamole_connection_ssh.server)
   display_name = "SSH Terminal"
   slug = "guacsshserver"
@@ -70,7 +70,7 @@ resource "coder_metadata" "guacamole_connection_kubernetes_server" {
 }
 
 resource "coder_app" "guacamole_kubernetes_server" {
-  agent_id = coder_agent.server[0].id
+  agent_id = coder_agent.server.id
   count = length(guacamole_connection_kubernetes.server)
   display_name = "Kubernetes Terminal"
   slug = "guack8sserver"
@@ -114,7 +114,7 @@ resource "coder_metadata" "guacamole_connection_ssh_agent0" {
 }
 
 resource "coder_app" "guacamole_ssh_agent0" {
-  agent_id = coder_agent.agent0[0].id
+  agent_id = coder_agent.agent0.id
   count = length(guacamole_connection_ssh.agent0)
   display_name = "SSH Terminal"
   slug = "guacsshagent0"
@@ -158,7 +158,7 @@ resource "coder_metadata" "guacamole_connection_ssh_agent1" {
 }
 
 resource "coder_app" "guacamole_ssh_agent1" {
-  agent_id = coder_agent.agent1[0].id
+  agent_id = coder_agent.agent1.id
   count = length(guacamole_connection_ssh.agent1)
   display_name = "SSH Terminal"
   slug = "guacsshagent1"
