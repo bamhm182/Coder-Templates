@@ -3,7 +3,7 @@ data "coder_workspace" "me" {}
 resource "coder_agent" "main" {
   os           = "linux"
   arch         = "amd64"
-  count        = data.coder_workspace.me.start_count
+  count        = data.coder_workspace.me.start_count == 0 ? 0 : var.node_count
 
   display_apps {
     vscode          = false

@@ -120,7 +120,7 @@ resource "libvirt_domain" "node" {
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
-      "echo ${coder_agent.main[0].token} > ~/.config/coder/token",
+      "echo ${coder_agent.main[count.index].token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*"
     ]
 
