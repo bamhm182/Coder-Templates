@@ -1,0 +1,142 @@
+{
+  "resource": {
+    "coder_agent": {
+      "node0": {
+        "arch": "amd64",
+        "count": "data.coder_parameter.node_count.value >= 1 ? data.coder_workspace.me.start_count : 0",
+        "display_apps": {
+          "ssh_helper": false,
+          "vscode": false,
+          "vscode_insiders": false,
+          "web_terminal": false
+        },
+        "metadata": [
+          {
+            "display_name": "CPU Usage",
+            "interval": 5,
+            "key": "cpu",
+            "script": "coder stat cpu",
+            "timeout": 5
+          },
+          {
+            "display_name": "Memory Usage",
+            "interval": 5,
+            "key": "memory",
+            "script": "coder stat mem",
+            "timeout": 5
+          },
+          {
+            "display_name": "Home Usage",
+            "interval": 600,
+            "key": "disk",
+            "script": "coder stat disk --path /home/user",
+            "timeout": 30
+          }
+        ],
+        "os": "linux"
+      },
+      "node1": {
+        "arch": "amd64",
+        "count": "data.coder_parameter.node_count.value >= 2 ? data.coder_workspace.me.start_count : 0",
+        "display_apps": {
+          "ssh_helper": false,
+          "vscode": false,
+          "vscode_insiders": false,
+          "web_terminal": false
+        },
+        "metadata": [
+          {
+            "display_name": "CPU Usage",
+            "interval": 5,
+            "key": "cpu",
+            "script": "coder stat cpu",
+            "timeout": 5
+          },
+          {
+            "display_name": "Memory Usage",
+            "interval": 5,
+            "key": "memory",
+            "script": "coder stat mem",
+            "timeout": 5
+          },
+          {
+            "display_name": "Home Usage",
+            "interval": 600,
+            "key": "disk",
+            "script": "coder stat disk --path /home/user",
+            "timeout": 30
+          }
+        ],
+        "os": "linux"
+      },
+      "node2": {
+        "arch": "amd64",
+        "count": "data.coder_parameter.node_count.value >= 3 ? data.coder_workspace.me.start_count : 0",
+        "display_apps": {
+          "ssh_helper": false,
+          "vscode": false,
+          "vscode_insiders": false,
+          "web_terminal": false
+        },
+        "metadata": [
+          {
+            "display_name": "CPU Usage",
+            "interval": 5,
+            "key": "cpu",
+            "script": "coder stat cpu",
+            "timeout": 5
+          },
+          {
+            "display_name": "Memory Usage",
+            "interval": 5,
+            "key": "memory",
+            "script": "coder stat mem",
+            "timeout": 5
+          },
+          {
+            "display_name": "Home Usage",
+            "interval": 600,
+            "key": "disk",
+            "script": "coder stat disk --path /home/user",
+            "timeout": 30
+          }
+        ],
+        "os": "linux"
+      },
+      "node3": {
+        "arch": "amd64",
+        "count": "data.coder_parameter.node_count.value >= 4 ? data.coder_workspace.me.start_count : 0",
+        "display_apps": {
+          "ssh_helper": false,
+          "vscode": false,
+          "vscode_insiders": false,
+          "web_terminal": false
+        },
+        "metadata": [
+          {
+            "display_name": "CPU Usage",
+            "interval": 5,
+            "key": "cpu",
+            "script": "coder stat cpu",
+            "timeout": 5
+          },
+          {
+            "display_name": "Memory Usage",
+            "interval": 5,
+            "key": "memory",
+            "script": "coder stat mem",
+            "timeout": 5
+          },
+          {
+            "display_name": "Home Usage",
+            "interval": 600,
+            "key": "disk",
+            "script": "coder stat disk --path /home/user",
+            "timeout": 30
+          }
+        ],
+        "os": "linux"
+      }
+    }
+  }
+}

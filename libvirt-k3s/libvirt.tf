@@ -1,13 +1,5 @@
-#resource "null_resource" "iso_deps" {
-#  provisioner "local-exec" {
-#    command = "apk update && apk add cdrkit libxslt"
-#    interpreter = [ "/bin/sh", "-c" ]
-#  }
-#}
-
 resource "libvirt_cloudinit_disk" "init" {
   count      = data.coder_workspace.me.start_count
-  #  depends_on = [ null_resource.iso_deps ]
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-init.iso")
   user_data  = data.template_file.user_data[0].rendered
   pool       = "working"
@@ -120,7 +112,7 @@ resource "libvirt_domain" "node" {
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
-      "echo ${coder_agent.main.token} > ~/.config/coder/token",
+      "echo ${coder_agent.node0.token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*"
     ]
 
