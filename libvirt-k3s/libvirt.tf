@@ -165,7 +165,7 @@ resource "libvirt_domain" "agent0" {
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.agent0.network_interface.0.addresses.0
+      host        = libvirt_domain.agent0[0].network_interface.0.addresses.0
       private_key = tls_private_key.ssh_key[1].private_key_openssh
       timeout     = "1m"
     }
@@ -224,7 +224,7 @@ resource "libvirt_domain" "agent1" {
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.agent1.network_interface.0.addresses.0
+      host        = libvirt_domain.agent1[0].network_interface.0.addresses.0
       private_key = tls_private_key.ssh_key[2].private_key_openssh
       timeout     = "1m"
     }
