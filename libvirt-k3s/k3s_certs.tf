@@ -1,5 +1,6 @@
 resource "tls_private_key" "ca_private_key" {
-  algorithm = "ED25519"
+  algorithm  = "ECDSA"
+  ecdsa_curve = "P384"
 }
 
 resource "tls_self_signed_cert" "ca_cert" {
@@ -26,7 +27,8 @@ resource "tls_self_signed_cert" "ca_cert" {
 }
 
 resource "tls_private_key" "internal" {
-  algorithm = "ED25519"
+  algorithm  = "ECDSA"
+  ecdsa_curve = "P384"
 }
 
 resource "tls_cert_request" "internal_csr" {
