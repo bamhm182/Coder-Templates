@@ -55,7 +55,7 @@ resource "libvirt_network" "k3snet" {
 }
 
 resource "libvirt_domain" "server" {
-  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-0")
+  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-server")
   count      = data.coder_workspace.me.start_count
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
