@@ -1,5 +1,5 @@
 resource "guacamole_connection_ssh" "server" {
-  name = "${data.coder_workspace.me.name} K3s Server Terminal (${data.coder_workspace.me.owner})"
+  name = "${data.coder_workspace.me.name} K3s Server Terminal (${data.coder_workspace_owner.me.name})"
   count  = data.coder_workspace.me.start_count
   parent_identifier = "ROOT"
   parameters {
@@ -27,7 +27,7 @@ resource "coder_metadata" "guacamole_connection_ssh_server" {
 }
 
 resource "guacamole_connection_ssh" "agent0" {
-  name = "${data.coder_workspace.me.name} K3s Agent-0 Terminal (${data.coder_workspace.me.owner})"
+  name = "${data.coder_workspace.me.name} K3s Agent-0 Terminal (${data.coder_workspace_owner.me.name})"
   count  = data.coder_workspace.me.start_count
   parent_identifier = "ROOT"
   parameters {
@@ -54,7 +54,7 @@ resource "coder_metadata" "guacamole_connection_ssh_agent0" {
   }
 }
 resource "guacamole_connection_ssh" "agent1" {
-  name = "${data.coder_workspace.me.name} K3s Agent-1 Terminal (${data.coder_workspace.me.owner})"
+  name = "${data.coder_workspace.me.name} K3s Agent-1 Terminal (${data.coder_workspace_owner.me.name})"
   count  = data.coder_workspace.me.start_count
   parent_identifier = "ROOT"
   parameters {
@@ -83,7 +83,7 @@ resource "coder_metadata" "guacamole_connection_ssh_agent1" {
 # ---
 
 resource "guacamole_user_group" "main" {
-  identifier = "coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-group"
+  identifier = "coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-group"
   count  = data.coder_workspace.me.start_count
   connections = concat(
     length(guacamole_connection_ssh.server) > 0 ? [guacamole_connection_ssh.server[0].identifier] : [],
@@ -91,7 +91,7 @@ resource "guacamole_user_group" "main" {
     length(guacamole_connection_ssh.agent1) > 0 ? [guacamole_connection_ssh.agent1[0].identifier] : [],
   )
   member_users = [
-    data.coder_workspace.me.owner
+    data.coder_workspace_owner.me.name
   ]
 }
 
