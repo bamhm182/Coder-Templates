@@ -1,13 +1,13 @@
-resource "null_resource" "iso_deps" {
-  provisioner "local-exec" {
-    command = "apk update && apk add cdrkit libxslt"
-    interpreter = [ "/bin/sh", "-c" ]
-  }
-}
+#resource "null_resource" "iso_deps" {
+#  provisioner "local-exec" {
+#    command = "apk update && apk add cdrkit libxslt"
+#    interpreter = [ "/bin/sh", "-c" ]
+#  }
+#}
 
 resource "libvirt_cloudinit_disk" "init" {
   count      = data.coder_workspace.me.start_count
-  depends_on = [ null_resource.iso_deps ]
+  #  depends_on = [ null_resource.iso_deps ]
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-init.iso")
   user_data  = data.template_file.user_data[0].rendered
   pool       = "working"
@@ -34,7 +34,7 @@ resource "libvirt_volume" "root" {
   count            = data.coder_workspace.me.start_count == 0 ? 0 : data.coder_parameter.node_count.value
   pool             = "working"
   format           = "qcow2"
-  base_volume_name = count.index == 0 ? "nixos-k8s-server.qcow2" : "nixos-k8s-agent.qcow2"
+  base_volume_name = count.index == 0 ? "nixos-k3s-server.qcow2" : "nixos-k3s-agent.qcow2"
   base_volume_pool = "baselines"
 }
 
@@ -64,7 +64,7 @@ resource "coder_metadata" "libvirt_volume_home" {
 resource "libvirt_network" "k3snet" {
   name      = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3snet")
   count     = data.coder_workspace.me.start_count
-  mode      = "nat"
+  mode      = "none"
   domain    = "k3s.local"
   addresses = [ "10.3.3.0/24" ]
 
@@ -110,7 +110,7 @@ resource "libvirt_domain" "node" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}"
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-0"
     target  = "out"
     readonly = false
   }
