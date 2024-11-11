@@ -71,7 +71,7 @@ resource "libvirt_domain" "server" {
   }
 
   disk {
-    volume_id = libvirt_volume.home[1].id
+    volume_id = libvirt_volume.home[0].id
   }
 
   boot_device {
