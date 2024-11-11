@@ -51,10 +51,11 @@ resource "libvirt_network" "k3snet" {
   name      = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3snet")
   count     = data.coder_workspace.me.start_count
   mode      = "none"
+  addresses = [ "10.3.3.0/24" ]
 }
 
 resource "libvirt_domain" "server" {
-  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-server")
+  name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-0")
   count      = data.coder_workspace.me.start_count
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
@@ -89,7 +90,7 @@ resource "libvirt_domain" "server" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-server"
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-0"
     target  = "out"
     readonly = false
   }
@@ -148,7 +149,7 @@ resource "libvirt_domain" "agent0" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-server"
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-0"
     target  = "out"
     readonly = false
   }
@@ -207,7 +208,7 @@ resource "libvirt_domain" "agent1" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-server"
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-k3s-0"
     target  = "out"
     readonly = false
   }
