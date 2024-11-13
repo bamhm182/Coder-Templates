@@ -114,7 +114,6 @@ resource "libvirt_domain" "node" {
       "echo ${base64encode(tls_private_key.internal.private_key_pem)} | base64 -d > ~/.config/k3s/client-admin.key",
       "echo ${base64encode(tls_locally_signed_cert.internal.cert_pem)} | base64 -d > ~/.config/k3s/client-admin.crt",
       "echo ${base64encode(tls_self_signed_cert.ca_cert.cert_pem)} | base64 -d >> ~/.config/k3s/client-admin.crt" ] : [ ]))
-    ]
 
     connection {
       type        = "ssh"
