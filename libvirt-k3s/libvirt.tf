@@ -100,6 +100,12 @@ resource "libvirt_domain" "node" {
     readonly = false
   }
 
+}
+
+resource "null_resource" "scripts" {
+  count = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents)
+  depends_on = [libvirt_domain.node]
+
   provisioner "remote-exec" {
     inline = concat([
       "install -d -m 0700 ~/.config/coder",
@@ -118,7 +124,8 @@ resource "libvirt_domain" "node" {
     connection {
       type        = "ssh"
       user        = "user"
-      host        = libvirt_domain.node[count.index].network_interface.0.addresses.0
+      host        = flatten([for nic in libvirt_domain.node[count.index].network_interface :
+                              [for addr in nic.addresses : addr if can(regex("^\\d+\\.\\d+\\.\\d+\\.\\d+$", addr))]])[0]
       private_key = tls_private_key.ssh_key[count.index].private_key_openssh
       timeout     = "1m"
     }
