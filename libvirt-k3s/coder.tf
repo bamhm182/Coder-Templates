@@ -4,13 +4,15 @@ data "coder_workspace_owner" "me" {}
 
 locals {
   coder_agents = [
-    coder_agent.server,
-    coder_agent.agent0,
-    coder_agent.agent1
+    coder_agent.node0,
+    coder_agent.node1,
+    coder_agent.node2,
+    coder_agent.node3,
+    coder_agent.node4
   ]
 }
 
-resource "coder_agent" "server" {
+resource "coder_agent" "node0" {
   os           = "linux"
   arch         = "amd64"
 
@@ -46,7 +48,7 @@ resource "coder_agent" "server" {
   }
 }
 
-resource "coder_agent" "agent0" {
+resource "coder_agent" "node1" {
   os           = "linux"
   arch         = "amd64"
 
@@ -82,7 +84,7 @@ resource "coder_agent" "agent0" {
   }
 }
 
-resource "coder_agent" "agent1" {
+resource "coder_agent" "node2" {
   os           = "linux"
   arch         = "amd64"
 
@@ -95,7 +97,7 @@ resource "coder_agent" "agent1" {
 
   metadata {
     key          = "cpu"
-    display_name = "CPU Usage"
+    display_name = "cpu usage"
     interval     = 5
     timeout      = 5
     script       = "coder stat cpu"
@@ -103,7 +105,7 @@ resource "coder_agent" "agent1" {
 
   metadata {
     key          = "memory"
-    display_name = "Memory Usage"
+    display_name = "memory usage"
     interval     = 5
     timeout      = 5
     script       = "coder stat mem"
@@ -111,7 +113,79 @@ resource "coder_agent" "agent1" {
 
   metadata {
     key          = "disk"
-    display_name = "Home Usage"
+    display_name = "home usage"
+    interval     = 600 # every 10 minutes
+    timeout      = 30  # df can take a while on large filesystems
+    script       = "coder stat disk --path /home/user"
+  }
+}
+
+resource "coder_agent" "node3" {
+  os           = "linux"
+  arch         = "amd64"
+
+  display_apps {
+    vscode          = false
+    vscode_insiders = false
+    web_terminal    = false
+    ssh_helper      = false
+  }
+
+  metadata {
+    key          = "cpu"
+    display_name = "cpu usage"
+    interval     = 5
+    timeout      = 5
+    script       = "coder stat cpu"
+  }
+
+  metadata {
+    key          = "memory"
+    display_name = "memory usage"
+    interval     = 5
+    timeout      = 5
+    script       = "coder stat mem"
+  }
+
+  metadata {
+    key          = "disk"
+    display_name = "home usage"
+    interval     = 600 # every 10 minutes
+    timeout      = 30  # df can take a while on large filesystems
+    script       = "coder stat disk --path /home/user"
+  }
+}
+
+resource "coder_agent" "node4" {
+  os           = "linux"
+  arch         = "amd64"
+
+  display_apps {
+    vscode          = false
+    vscode_insiders = false
+    web_terminal    = false
+    ssh_helper      = false
+  }
+
+  metadata {
+    key          = "cpu"
+    display_name = "cpu usage"
+    interval     = 5
+    timeout      = 5
+    script       = "coder stat cpu"
+  }
+
+  metadata {
+    key          = "memory"
+    display_name = "memory usage"
+    interval     = 5
+    timeout      = 5
+    script       = "coder stat mem"
+  }
+
+  metadata {
+    key          = "disk"
+    display_name = "home usage"
     interval     = 600 # every 10 minutes
     timeout      = 30  # df can take a while on large filesystems
     script       = "coder stat disk --path /home/user"

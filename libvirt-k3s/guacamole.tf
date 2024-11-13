@@ -1,53 +1,9 @@
-resource "guacamole_connection_ssh" "server" {
-  name = "${data.coder_workspace.me.name} K3s Server Terminal (${data.coder_workspace_owner.me.name})"
-  count  = data.coder_workspace.me.start_count
-  parent_identifier = "ROOT"
-  parameters {
-    hostname = libvirt_domain.server[0].network_interface.0.addresses.0
-    port = 22
-    username = "user"
-    private_key = tls_private_key.ssh_key[0].private_key_openssh
-    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
-    recording_auto_create_path = "true"
-  }
-}
-
-resource "coder_metadata" "guacamole_connection_ssh_server" {
-  resource_id = guacamole_connection_ssh.server[0].id
-  count  = data.coder_workspace.me.start_count
-  item {
-    key = "Guacamole URL (SSH)"
-    value = format(
-      "%s%s%s",
-      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
-      "/#/client/",
-      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.server[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
-    )
-  }
-}
-
-resource "coder_app" "guacamole_ssh_server" {
-  agent_id = coder_agent.server.id
-  count = length(guacamole_connection_ssh.server)
-  display_name = "SSH Terminal"
-  slug = "guacsshserver"
-  icon = "/icon/apache-guacamole.svg"
-  external = true
-
-  url = format(
-    "%s%s%s",
-    replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
-    "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.server[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
-  )
-}
-
-resource "guacamole_connection_kubernetes" "server" {
+resource "guacamole_connection_kubernetes" "node" {
   name = "${data.coder_workspace.me.name} K3s Kubernetes Terminal (${data.coder_workspace_owner.me.name})"
   count  = data.coder_workspace.me.start_count
   parent_identifier = "ROOT"
   parameters {
-    hostname = libvirt_domain.server[0].network_interface.0.addresses.0
+    hostname = libvirt_domain.node[0].network_interface.0.addresses.0
     port = 6443
     use_ssl = true
     ca_cert = tls_self_signed_cert.ca_cert.cert_pem
@@ -58,8 +14,24 @@ resource "guacamole_connection_kubernetes" "server" {
   }
 }
 
-resource "coder_metadata" "guacamole_connection_kubernetes_server" {
-  resource_id = guacamole_connection_kubernetes.server[0].id
+resource "guacamole_connection_ssh" "node" {
+  count = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents)
+  name = "${data.coder_workspace.me.name} K3s node${count.index} Terminal (${data.coder_workspace_owner.me.name})"
+  parent_identifier = "ROOT"
+  parameters {
+    hostname = libvirt_domain.node[count.index].network_interface.0.addresses.0
+    port = 22
+    username = "user"
+    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
+    recording_auto_create_path = "true"
+  }
+}
+
+# ----------------------
+
+resource "coder_metadata" "guacamole_connection_kubernetes_node0" {
+  resource_id = guacamole_connection_kubernetes.node[0].id
   count  = data.coder_workspace.me.start_count
   item {
     key = "Guacamole URL (Kubernetes)"
@@ -67,16 +39,88 @@ resource "coder_metadata" "guacamole_connection_kubernetes_server" {
       "%s%s%s",
       replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
       "/#/client/",
-      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_kubernetes.server[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_kubernetes.node[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
     )
   }
 }
 
-resource "coder_app" "guacamole_kubernetes_server" {
-  agent_id = coder_agent.server.id
-  count = length(guacamole_connection_kubernetes.server)
+resource "coder_metadata" "guacamole_connection_ssh_node0" {
+  resource_id = guacamole_connection_ssh.node[0].id
+  count  = data.coder_workspace.me.start_count
+  item {
+    key = "Guacamole URL (SSH)"
+    value = format(
+      "%s%s%s",
+      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+      "/#/client/",
+      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    )
+  }
+}
+
+resource "coder_metadata" "guacamole_connection_ssh_node1" {
+  resource_id = guacamole_connection_ssh.node[1].id
+  count  = data.coder_workspace.me.start_count
+  item {
+    key = "Guacamole URL (SSH)"
+    value = format(
+      "%s%s%s",
+      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+      "/#/client/",
+      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[1].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    )
+  }
+}
+
+resource "coder_metadata" "guacamole_connection_ssh_node2" {
+  resource_id = guacamole_connection_ssh.node[2].id
+  count  = data.coder_workspace.me.start_count
+  item {
+    key = "Guacamole URL (SSH)"
+    value = format(
+      "%s%s%s",
+      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+      "/#/client/",
+      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[2].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    )
+  }
+}
+
+resource "coder_metadata" "guacamole_connection_ssh_node3" {
+  resource_id = guacamole_connection_ssh.node[3].id
+  count  = data.coder_workspace.me.start_count
+  item {
+    key = "Guacamole URL (SSH)"
+    value = format(
+      "%s%s%s",
+      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+      "/#/client/",
+      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[3].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    )
+  }
+}
+
+resource "coder_metadata" "guacamole_connection_ssh_node4" {
+  resource_id = guacamole_connection_ssh.node[4].id
+  count  = data.coder_workspace.me.start_count
+  item {
+    key = "Guacamole URL (SSH)"
+    value = format(
+      "%s%s%s",
+      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+      "/#/client/",
+      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[4].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    )
+  }
+}
+
+# ----------------------
+
+resource "coder_app" "guacamole_kubernetes_node0" {
+  agent_id = local.coder_agents[0].id
+  count = data.coder_workspace.me.start_count
   display_name = "Kubernetes Terminal"
-  slug = "guack8sserver"
+  slug = "guack8snode0"
   icon = "/icon/apache-guacamole.svg"
   external = true
 
@@ -84,43 +128,15 @@ resource "coder_app" "guacamole_kubernetes_server" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_kubernetes.server[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_kubernetes.node[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
 
-resource "guacamole_connection_ssh" "agent0" {
-  name = "${data.coder_workspace.me.name} K3s Agent-0 Terminal (${data.coder_workspace_owner.me.name})"
-  count  = data.coder_workspace.me.start_count
-  parent_identifier = "ROOT"
-  parameters {
-    hostname = libvirt_domain.agent0[0].network_interface.0.addresses.0
-    port = 22
-    username = "user"
-    private_key = tls_private_key.ssh_key[1].private_key_openssh
-    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
-    recording_auto_create_path = "true"
-  }
-}
-
-resource "coder_metadata" "guacamole_connection_ssh_agent0" {
-  resource_id = guacamole_connection_ssh.agent0[0].id
-  count  = data.coder_workspace.me.start_count
-  item {
-    key = "Guacamole URL (SSH)"
-    value = format(
-      "%s%s%s",
-      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
-      "/#/client/",
-      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.agent0[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
-    )
-  }
-}
-
-resource "coder_app" "guacamole_ssh_agent0" {
-  agent_id = coder_agent.agent0.id
-  count = length(guacamole_connection_ssh.agent0)
+resource "coder_app" "guacamole_ssh_node0" {
+  agent_id = local.coder_agents[0].id
+  count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
-  slug = "guacsshagent0"
+  slug = "guacsshnode0"
   icon = "/icon/apache-guacamole.svg"
   external = true
 
@@ -128,43 +144,15 @@ resource "coder_app" "guacamole_ssh_agent0" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.agent0[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
 
-resource "guacamole_connection_ssh" "agent1" {
-  name = "${data.coder_workspace.me.name} K3s Agent-1 Terminal (${data.coder_workspace_owner.me.name})"
-  count  = data.coder_workspace.me.start_count
-  parent_identifier = "ROOT"
-  parameters {
-    hostname = libvirt_domain.agent1[0].network_interface.0.addresses.0
-    port = 22
-    username = "user"
-    private_key = tls_private_key.ssh_key[2].private_key_openssh
-    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
-    recording_auto_create_path = "true"
-  }
-}
-
-resource "coder_metadata" "guacamole_connection_ssh_agent1" {
-  resource_id = guacamole_connection_ssh.agent1[0].id
-  count  = data.coder_workspace.me.start_count
-  item {
-    key = "Guacamole URL (SSH)"
-    value = format(
-      "%s%s%s",
-      replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
-      "/#/client/",
-      replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.agent1[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
-    )
-  }
-}
-
-resource "coder_app" "guacamole_ssh_agent1" {
-  agent_id = coder_agent.agent1.id
-  count = length(guacamole_connection_ssh.agent1)
+resource "coder_app" "guacamole_ssh_node1" {
+  agent_id = local.coder_agents[1].id
+  count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
-  slug = "guacsshagent1"
+  slug = "guacsshnode1"
   icon = "/icon/apache-guacamole.svg"
   external = true
 
@@ -172,27 +160,54 @@ resource "coder_app" "guacamole_ssh_agent1" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.agent1[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[1].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
 
-# ---
+resource "coder_app" "guacamole_ssh_node2" {
+  agent_id = local.coder_agents[2].id
+  count = data.coder_workspace.me.start_count
+  display_name = "SSH Terminal"
+  slug = "guacsshnode2"
+  icon = "/icon/apache-guacamole.svg"
+  external = true
 
-resource "guacamole_user_group" "main" {
-  identifier = "coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-group"
-  count  = data.coder_workspace.me.start_count
-  connections = concat(
-    length(guacamole_connection_ssh.server) > 0 ? [guacamole_connection_ssh.server[0].identifier] : [],
-    length(guacamole_connection_ssh.agent0) > 0 ? [guacamole_connection_ssh.agent0[0].identifier] : [],
-    length(guacamole_connection_ssh.agent1) > 0 ? [guacamole_connection_ssh.agent1[0].identifier] : [],
+  url = format(
+    "%s%s%s",
+    replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+    "/#/client/",
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[2].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
-  member_users = [
-    data.coder_workspace_owner.me.name
-  ]
 }
 
-resource "coder_metadata" "guacamole_user_group_main" {
-  resource_id = guacamole_user_group.main[0].id
-  count  = data.coder_workspace.me.start_count
-  hide = true
+resource "coder_app" "guacamole_ssh_node3" {
+  agent_id = local.coder_agents[3].id
+  count = data.coder_workspace.me.start_count
+  display_name = "SSH Terminal"
+  slug = "guacsshnode3"
+  icon = "/icon/apache-guacamole.svg"
+  external = true
+
+  url = format(
+    "%s%s%s",
+    replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+    "/#/client/",
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[3].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+  )
+}
+
+resource "coder_app" "guacamole_ssh_node4" {
+  agent_id = local.coder_agents[4].id
+  count = data.coder_workspace.me.start_count
+  display_name = "SSH Terminal"
+  slug = "guacsshnode4"
+  icon = "/icon/apache-guacamole.svg"
+  external = true
+
+  url = format(
+    "%s%s%s",
+    replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
+    "/#/client/",
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[4].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+  )
 }
