@@ -48,7 +48,7 @@ resource "libvirt_volume" "home" {
 # ---
 
 resource "random_integer" "network" {
-  count = 3
+  count = 2
   min = 0
   max = 254
 }
@@ -57,7 +57,7 @@ resource "libvirt_network" "k3snet" {
   name      = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3snet")
   count     = data.coder_workspace.me.start_count
   mode      = "none"
-  addresses = [ "127.${random_integer.network[0].result}.${random_integer.network[1].result}.${random_integer.network[2].result}/32" ]
+  addresses = [ "127.${random_integer.network[0].result}.${random_integer.network[1].result}.0/24" ]
 }
 
 resource "libvirt_domain" "node" {
