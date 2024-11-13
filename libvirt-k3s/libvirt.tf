@@ -24,12 +24,6 @@ resource "libvirt_volume" "root" {
   base_volume_pool = "baselines"
 }
 
-#resource "coder_metadata" "libvirt_volume_root" {
-#  count       = data.coder_workspace.me.start_count
-#  resource_id = libvirt_volume.root[0].id
-#  hide        = true
-#}
-
 resource "libvirt_volume" "home" {
   count            = length(local.coder_agents)
   name             = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-node${count.index}.home.qcow2")
@@ -38,12 +32,6 @@ resource "libvirt_volume" "home" {
   base_volume_name = "home.ext4.qcow2"
   base_volume_pool = "baselines"
 }
-
-#resource "coder_metadata" "libvirt_volume_home" {
-#  count       = data.coder_workspace.me.start_count
-#  resource_id = libvirt_volume.home[0].id
-#  hide        = true
-#}
 
 # ---
 
