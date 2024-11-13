@@ -91,7 +91,7 @@ resource "libvirt_domain" "node" {
 
   network_interface {
     network_id = libvirt_network.k3snet[0].id
-    mac = "6B:38:73:00:00:${format("%02X", count.index)}"
+    mac = "6E:6F:64:65:73:${format("%02X", count.index)}"
   }
 
   filesystem {
