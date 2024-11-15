@@ -21,7 +21,7 @@ module "node0" {
   type       = "server"
   ws_name    = data.coder_workspace.me.name
   ws_number  = 0
-}A
+}
 
 module "node1" {
   source   = "./modules/node"
