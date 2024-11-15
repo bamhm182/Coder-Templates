@@ -10,7 +10,7 @@ variable "coder_url" {
 variable "cpu" {
   default     = 1
   description = "CPU Core count"
-  type        = int
+  type        = number
 }
 
 variable "flavor" {
