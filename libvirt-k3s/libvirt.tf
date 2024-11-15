@@ -12,7 +12,7 @@ resource "libvirt_network" "internal" {
 }
 
 module "node0" {
-  source = "git:::https://github.com/bamhm182/Coder-Templates.git//libvirt-k3s/modules/node?ref=wip-k3s"
+  source = "git::https://github.com/bamhm182/Coder-Templates.git//libvirt-k3s/modules/node?ref=wip-k3s"
   count  = data.coder_workspace.me.start_count
 
   coder_url  = data.coder_workspace.me.access_url
@@ -26,7 +26,7 @@ module "node0" {
 }
 
 module "node1" {
-  source = "git:::https://github.com/bamhm182/Coder-Templates.git//libvirt-k3s/modules/node?ref=wip-k3s"
+  source = "git::https://github.com/bamhm182/Coder-Templates.git//libvirt-k3s/modules/node?ref=wip-k3s"
   count  = data.coder_workspace.me.start_count
 
   coder_url  = data.coder_workspace.me.access_url
