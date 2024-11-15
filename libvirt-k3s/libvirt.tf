@@ -39,3 +39,18 @@ module "node1" {
   ws_name     = data.coder_workspace.me.name
   ws_number   = 1
 }
+
+module "node2" {
+  source   = "./modules/node"
+
+  agent_id    = coder_agent.node2.id
+  agent_token = coder_agent.node2.token
+  coder_url   = data.coder_workspace.me.access_url
+  cpu         = data.coder_parameter.cpu_count.value
+  network_id  = libvirt_network.internal.id
+  owner       = data.coder_workspace.me.name
+  ram         = (data.coder_parameter.ram_amount.value * 1024)
+  type        = "agent"
+  ws_name     = data.coder_workspace.me.name
+  ws_number   = 2
+}
