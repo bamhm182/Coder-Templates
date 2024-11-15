@@ -1,5 +1,5 @@
-locals "instance_name" {
-  "instance_name" = lower("coder-${var.owner}-${var.ws_name}-node${var.ws_number}")
+locals {
+  instance_name = lower("coder-${var.owner}-${var.ws_name}-node${var.ws_number}")
 }
 
 variable "coder_url" {
