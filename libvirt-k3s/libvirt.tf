@@ -12,10 +12,10 @@ resource "libvirt_network" "internal" {
 
 module "node" {
   source   = "./modules/node"
-  count    = 3
+  count    = data.coder_workspace.me.start_count
 
   agent_id      = coder_agent.Kubernetes.id
-  agent_token   = count.index == 0 ? coder_agent.Kubernetes.token : "xxxxxxxxxX"
+  agent_token   = count.index == 0 ? coder_agent.Kubernetes.token : "xxxxxxxxxx"
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.internal.id
