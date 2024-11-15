@@ -24,17 +24,3 @@ module "node0" {
   ws_name    = data.coder_workspace.me.name
   ws_number  = 0
 }
-
-module "node1" {
-  source = "git::https://github.com/bamhm182/Coder-Templates.git//libvirt-k3s/modules/node?ref=wip-k3s"
-  count  = data.coder_workspace.me.start_count
-
-  coder_url  = data.coder_workspace.me.access_url
-  cpu        = data.coder_parameter.cpu_count.value
-  network_id = libvirt_network.internal[0].id
-  owner      = data.coder_workspace.me.name
-  ram        = (data.coder_parameter.ram_amount.value * 1024)
-  type       = "agent"
-  ws_name    = data.coder_workspace.me.name
-  ws_number  = 1
-}
