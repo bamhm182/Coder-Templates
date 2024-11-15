@@ -1,5 +1,5 @@
 resource "coder_metadata" "node_info" {
-  resource_id = libvirt_domain.node
+  resource_id = libvirt_domain.node.id
   item {
     key = "Password"
     value = random_password.user.result
