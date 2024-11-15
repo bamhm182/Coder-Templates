@@ -1,6 +1,6 @@
 resource "guacamole_connection_ssh" "node" {
   depends_on = [libvirt_domain.node]
-  name = "${var.ws_name} node${var.ws_number} Terminal (${var.owner})"
+  name = "${var.ws_name} ${title(var.type)} ${var.ws_number} Terminal (${var.owner})"
   parent_identifier = "ROOT"
   parameters {
     hostname = flatten([for nic in libvirt_domain.node.network_interface :
@@ -15,7 +15,7 @@ resource "guacamole_connection_ssh" "node" {
 
 resource "coder_app" "guacamole_ssh_node" {
   agent_id = var.agent_id
-  display_name = "node${var.ws_number} (SSH)"
+  display_name = "${title(var.type)} ${var.ws_number} (SSH)"
   slug = "guacsshnode${var.ws_number}"
   icon = "/icon/apache-guacamole.svg"
   external = true
