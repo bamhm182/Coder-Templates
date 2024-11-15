@@ -10,7 +10,20 @@ resource "libvirt_network" "internal" {
   addresses = [ "127.${random_integer.network[0].result}.${random_integer.network[1].result}.0/24" ]
 }
 
-module "node" {
+module "node0" {
+  source   = "./modules/node"
+
+  coder_url  = data.coder_workspace.me.access_url
+  cpu        = data.coder_parameter.cpu_count.value
+  network_id = libvirt_network.internal.id
+  owner      = data.coder_workspace.me.name
+  ram        = (data.coder_parameter.ram_amount.value * 1024)
+  type       = "server"
+  ws_name    = data.coder_workspace.me.name
+  ws_number  = 0
+}A
+
+module "node1" {
   source   = "./modules/node"
 
   coder_url  = data.coder_workspace.me.access_url
