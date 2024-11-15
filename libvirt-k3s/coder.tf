@@ -2,6 +2,7 @@ data "coder_workspace" "me" {}
 data "coder_workspace_owner" "me" {}
 
 resource "coder_agent" "toplevel" {
+  count        = data.coder_workspace.me.start_count
   os           = "linux"
   arch         = "amd64"
 
