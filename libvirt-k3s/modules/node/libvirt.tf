@@ -72,7 +72,6 @@ resource "libvirt_domain" "node" {
 }
 
 resource "null_resource" "scripts" {
-  count = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents)
   depends_on = [libvirt_domain.node]
 
   provisioner "remote-exec" {
