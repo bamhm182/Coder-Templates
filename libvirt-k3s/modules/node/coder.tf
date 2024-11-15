@@ -1,4 +1,4 @@
-resource "coder_agent" "me" {
+resource "coder_agent" "node${var.ws_number}" {
   os           = "linux"
   arch         = "amd64"
 
