@@ -18,7 +18,7 @@ module "node0" {
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.internal.id
-  owner         = data.coder_workspace.me.name
+  owner         = data.coder_workspace_owner.me.name
   ram           = (data.coder_parameter.ram_amount.value * 1024)
   type          = "server"
   ws_name       = data.coder_workspace.me.name
@@ -33,7 +33,7 @@ module "node1" {
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.internal.id
-  owner         = data.coder_workspace.me.name
+  owner         = data.coder_workspace_owner.me.name
   ram           = (data.coder_parameter.ram_amount.value * 1024)
   type          = "agent"
   ws_name       = data.coder_workspace.me.name
@@ -48,7 +48,7 @@ module "node2" {
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.internal.id
-  owner         = data.coder_workspace.me.name
+  owner         = data.coder_workspace_owner.me.name
   ram           = (data.coder_parameter.ram_amount.value * 1024)
   type          = "agent"
   ws_name       = data.coder_workspace.me.name
@@ -63,7 +63,7 @@ module "node3" {
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.internal.id
-  owner         = data.coder_workspace.me.name
+  owner         = data.coder_workspace_owner.me.name
   ram           = (data.coder_parameter.ram_amount.value * 1024)
   type          = "agent"
   ws_name       = data.coder_workspace.me.name
@@ -78,7 +78,7 @@ module "node4" {
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.internal.id
-  owner         = data.coder_workspace.me.name
+  owner         = data.coder_workspace_owner.me.name
   ram           = (data.coder_parameter.ram_amount.value * 1024)
   type          = "agent"
   ws_name       = data.coder_workspace.me.name
