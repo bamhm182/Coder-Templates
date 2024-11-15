@@ -30,6 +30,3 @@ terraform {
     }
   }
 }
-
-provider "guacamole" {}
-provider "libvirt" {}
