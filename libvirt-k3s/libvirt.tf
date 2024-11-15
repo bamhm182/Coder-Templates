@@ -11,7 +11,7 @@ resource "libvirt_network" "internal" {
   addresses = [ "127.${random_integer.network[0].result}.${random_integer.network[1].result}.0/24" ]
 }
 
-module "node0" {
+module "node" {
   source   = "git::https://github.com/bamhm182/Coder-Templates.git//libvirt-k3s/modules/node?ref=wip-k3s"
   count    = data.coder_workspace.me.start_count
 
