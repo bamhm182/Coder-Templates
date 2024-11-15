@@ -78,7 +78,7 @@ resource "null_resource" "scripts" {
     inline = concat([
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
-      "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
+      "echo ${var.coder_url} > ~/.config/coder/url",
       "echo ${resource.coder_agent.me.token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*" ],
       (var.type == "server" ? [
