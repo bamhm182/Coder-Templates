@@ -13,6 +13,7 @@ resource "libvirt_network" "internal" {
 
 module "node0" {
   source = "./modules/node"
+  count  = data.coder_workspace.me.start_count
 
   coder_url  = data.coder_workspace.me.access_url
   cpu        = data.coder_parameter.cpu_count.value
@@ -26,6 +27,7 @@ module "node0" {
 
 module "node1" {
   source = "./modules/node"
+  count  = data.coder_workspace.me.start_count
 
   coder_url  = data.coder_workspace.me.access_url
   cpu        = data.coder_parameter.cpu_count.value
