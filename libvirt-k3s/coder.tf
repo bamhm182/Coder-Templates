@@ -1,6 +1,12 @@
 data "coder_workspace" "me" {}
 data "coder_workspace_owner" "me" {}
 
+locals {
+  agents = [
+    coder_agent.Kubernetes
+  ]
+}
+
 resource "coder_agent" "Kubernetes" {
   os           = "linux"
   arch         = "amd64"
