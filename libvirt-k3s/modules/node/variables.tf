@@ -2,6 +2,16 @@ locals {
   instance_name = lower("coder-${var.owner}-${var.ws_name}-node${var.ws_number}")
 }
 
+variable "agent_id" {
+  description = "Coder Agent ID"
+  type = string
+}
+
+variable "agent_token" {
+  description = "Coder Agent Token"
+  type = string
+}
+
 variable "coder_url" {
   description = "URL to access Coder"
   type = string

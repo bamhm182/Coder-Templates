@@ -14,7 +14,7 @@ resource "guacamole_connection_ssh" "node" {
 }
 
 resource "coder_app" "guacamole_ssh_node" {
-  agent_id = resource.coder_agent.me.id
+  agent_id = var.agent_id
   display_name = "SSH Terminal"
   slug = "guacsshnode${var.ws_number}"
   icon = "/icon/apache-guacamole.svg"

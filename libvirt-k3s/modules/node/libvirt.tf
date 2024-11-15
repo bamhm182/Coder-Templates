@@ -79,7 +79,7 @@ resource "null_resource" "scripts" {
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
       "echo ${var.coder_url} > ~/.config/coder/url",
-      "echo ${resource.coder_agent.me.token} > ~/.config/coder/token",
+      "echo ${var.agent_token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*" ],
       (var.type == "server" ? [
       "install -d -m 0700 ~/.config/k3s",
