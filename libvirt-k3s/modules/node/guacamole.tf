@@ -13,17 +13,17 @@ resource "guacamole_connection_ssh" "node" {
   }
 }
 
-#resource "coder_app" "guacamole_ssh_node" {
-#  agent_id = var.agent_id
-#  display_name = "${title(var.type)} ${var.ws_number} (SSH)"
-#  slug = "guacsshnode${var.ws_number}"
-#  icon = "/icon/apache-guacamole.svg"
-#  external = true
-#
-#  url = format(
-#    "%s%s%s",
-#    replace(var.coder_url, "coder", "guacamole"),
-#    "/#/client/",
-#    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
-#  )
-#}
+resource "coder_app" "guacamole_ssh_node" {
+  agent_id = var.agent_id
+  display_name = "${title(var.type)} ${var.ws_number} (SSH)"
+  slug = "guacsshnode${var.ws_number}"
+  icon = "/icon/apache-guacamole.svg"
+  external = true
+
+  url = format(
+    "%s%s%s",
+    replace(var.coder_url, "coder", "guacamole"),
+    "/#/client/",
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+  )
+}
