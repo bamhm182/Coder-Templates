@@ -8,8 +8,8 @@ module "node0" {
   count = data.coder_workspace.me.start_count
   source   = "./modules/node"
 
-  agent_id      = coder_agent.node0.id
-  agent_token   = coder_agent.node0.token
+  agent_id      = coder_agent.node0[0].id
+  agent_token   = coder_agent.node0[0].token
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.private[0].id
@@ -24,8 +24,8 @@ module "node1" {
   count = data.coder_workspace.me.start_count
   source   = "./modules/node"
 
-  agent_id      = coder_agent.node1.id
-  agent_token   = coder_agent.node1.token
+  agent_id      = coder_agent.node1[0].id
+  agent_token   = coder_agent.node1[0].token
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.private[0].id
@@ -40,8 +40,8 @@ module "node2" {
   count = data.coder_workspace.me.start_count
   source   = "./modules/node"
 
-  agent_id      = coder_agent.node2.id
-  agent_token   = coder_agent.node2.token
+  agent_id      = coder_agent.node2[0].id
+  agent_token   = coder_agent.node2[0].token
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.private[0].id
@@ -56,8 +56,8 @@ module "node3" {
   count = data.coder_workspace.me.start_count
   source   = "./modules/node"
 
-  agent_id      = coder_agent.node3.id
-  agent_token   = coder_agent.node3.token
+  agent_id      = coder_agent.node3[0].id
+  agent_token   = coder_agent.node3[0].token
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.private[0].id
@@ -72,8 +72,8 @@ module "node4" {
   count = data.coder_workspace.me.start_count
   source   = "./modules/node"
 
-  agent_id      = coder_agent.node4.id
-  agent_token   = coder_agent.node4.token
+  agent_id      = coder_agent.node4[0].id
+  agent_token   = coder_agent.node4[0].token
   coder_url     = data.coder_workspace.me.access_url
   cpu           = data.coder_parameter.cpu_count.value
   network_id    = libvirt_network.private[0].id

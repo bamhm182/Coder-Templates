@@ -4,6 +4,8 @@ data "coder_workspace_owner" "me" {}
 resource "coder_agent" "node0" {
   os           = "linux"
   arch         = "amd64"
+  count        = data.coder_workspace.me.start_count
+
 
   display_apps {
     vscode          = false
@@ -40,6 +42,7 @@ resource "coder_agent" "node0" {
 resource "coder_agent" "node1" {
   os           = "linux"
   arch         = "amd64"
+  count        = data.coder_workspace.me.start_count
 
   display_apps {
     vscode          = false
@@ -76,6 +79,7 @@ resource "coder_agent" "node1" {
 resource "coder_agent" "node2" {
   os           = "linux"
   arch         = "amd64"
+  count        = data.coder_workspace.me.start_count
 
   display_apps {
     vscode          = false
@@ -112,6 +116,7 @@ resource "coder_agent" "node2" {
 resource "coder_agent" "node3" {
   os           = "linux"
   arch         = "amd64"
+  count        = data.coder_workspace.me.start_count
 
   display_apps {
     vscode          = false
@@ -148,6 +153,7 @@ resource "coder_agent" "node3" {
 resource "coder_agent" "node4" {
   os           = "linux"
   arch         = "amd64"
+  count        = data.coder_workspace.me.start_count
 
   display_apps {
     vscode          = false
