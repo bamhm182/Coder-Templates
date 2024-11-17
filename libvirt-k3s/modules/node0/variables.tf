@@ -4,17 +4,17 @@ locals {
 
 variable "agent_id" {
   description = "Coder Agent ID"
-  type = string
+  type        = string
 }
 
 variable "agent_token" {
   description = "Coder Agent Token"
-  type = string
+  type        = string
 }
 
 variable "coder_url" {
   description = "URL to access Coder"
-  type = string
+  type        = string
 }
 
 variable "cpu" {
@@ -53,7 +53,7 @@ variable "type" {
 
 variable "ws_name" {
   description = "Name of the VM workspace"
-  type = string
+  type        = string
 }
 
 variable "ws_number" {

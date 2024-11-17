@@ -6,7 +6,7 @@ resource "libvirt_network" "private" {
 
 module "node0" {
   count = data.coder_workspace.me.start_count
-  source   = "./modules/node"
+  source   = "./modules/node0"
 
   agent_id      = coder_agent.node0[0].id
   agent_token   = coder_agent.node0[0].token
@@ -22,7 +22,7 @@ module "node0" {
 
 module "node1" {
   count = data.coder_workspace.me.start_count
-  source   = "./modules/node"
+  source   = "./modules/node1"
 
   agent_id      = coder_agent.node1[0].id
   agent_token   = coder_agent.node1[0].token
@@ -38,7 +38,7 @@ module "node1" {
 
 module "node2" {
   count = data.coder_workspace.me.start_count
-  source   = "./modules/node"
+  source   = "./modules/node2"
 
   agent_id      = coder_agent.node2[0].id
   agent_token   = coder_agent.node2[0].token
@@ -54,7 +54,7 @@ module "node2" {
 
 module "node3" {
   count = data.coder_workspace.me.start_count
-  source   = "./modules/node"
+  source   = "./modules/node3"
 
   agent_id      = coder_agent.node3[0].id
   agent_token   = coder_agent.node3[0].token
@@ -70,7 +70,7 @@ module "node3" {
 
 module "node4" {
   count = data.coder_workspace.me.start_count
-  source   = "./modules/node"
+  source   = "./modules/node4"
 
   agent_id      = coder_agent.node4[0].id
   agent_token   = coder_agent.node4[0].token

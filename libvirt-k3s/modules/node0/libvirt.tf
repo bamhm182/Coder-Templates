@@ -1,19 +1,19 @@
-resource "libvirt_cloudinit_disk" "init" {
-  name       = lower("${local.instance_name}.init.iso")
-  user_data  = data.template_file.user_data.rendered
-  pool       = "working"
+resource "libvirt_cloudinit_disk" "init_node0" {
+  name      = lower("${local.instance_name}.init.iso")
+  user_data = data.template_file.user_data.rendered
+  pool      = "working"
 }
 
 # ---
 
-data "template_file" "user_data" {
-  template          = templatefile("${path.module}/cloudinit.cfg.template", {
+data "template_file" "user_data_node0" {
+  template = templatefile("${path.module}/cloudinit.cfg.template", {
     password_hash   = htpasswd_password.user.sha512,
     authorized_keys = chomp(tls_private_key.ssh_key.public_key_openssh),
   })
 }
 
-resource "libvirt_volume" "root" {
+resource "libvirt_volume" "root_node0" {
   name             = lower("${local.instance_name}.qcow2")
   pool             = "working"
   format           = "qcow2"
@@ -21,7 +21,7 @@ resource "libvirt_volume" "root" {
   base_volume_pool = "baselines"
 }
 
-resource "libvirt_volume" "home" {
+resource "libvirt_volume" "home_node0" {
   name             = lower("${local.instance_name}.home.qcow2")
   pool             = "working"
   format           = "qcow2"
@@ -31,23 +31,23 @@ resource "libvirt_volume" "home" {
 
 # ---
 
-resource "libvirt_domain" "node" {
+resource "libvirt_domain" "node0" {
   name       = local.instance_name
   memory     = var.ram
   vcpu       = var.cpu
   qemu_agent = true
-  cloudinit  = libvirt_cloudinit_disk.init.id
+  cloudinit  = libvirt_cloudinit_disk.init_node0.id
 
   timeouts {
     create = "1m"
   }
 
   disk {
-    volume_id = libvirt_volume.root.id
+    volume_id = libvirt_volume.root_node0.id
   }
 
   disk {
-    volume_id = libvirt_volume.home.id
+    volume_id = libvirt_volume.home_node0.id
   }
 
   boot_device {
@@ -71,8 +71,8 @@ resource "libvirt_domain" "node" {
   }
 }
 
-resource "null_resource" "scripts" {
-  depends_on = [libvirt_domain.node]
+resource "null_resource" "scripts_node0" {
+  depends_on = [libvirt_domain.node0]
 
   provisioner "remote-exec" {
     inline = concat([
@@ -92,9 +92,9 @@ resource "null_resource" "scripts" {
     connection {
       type        = "ssh"
       user        = "user"
-      host        = flatten([for nic in libvirt_domain.node.network_interface :
+      host        = flatten([for nic in libvirt_domain.node0.network_interface :
                               [for addr in nic.addresses : addr if can(regex("^\\d+\\.\\d+\\.\\d+\\.\\d+$", addr))]])[0]
-      private_key = tls_private_key.ssh_key.private_key_openssh
+      private_key = tls_private_key.ssh_key_node0.private_key_openssh
       timeout     = "1m"
     }
   }
