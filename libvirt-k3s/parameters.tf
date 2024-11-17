@@ -1,3 +1,23 @@
+data "coder_parameter" "kube_flacor" {
+  name         = "kube_flavor"
+  display_name = "Kubernetes Type"
+  description  = "Whether to use k3s or k8s"
+  default      = "k3s"
+  type         = "string"
+  icon         = "/icon/k8s.png"
+  mutable      = false
+  order        = 0
+
+  option {
+    name  = "k3s"
+    value = "k3s"
+  }
+  option {
+    name  = "k8s"
+    value = "k8s"
+  }
+}
+
 data "coder_parameter" "cpu_count" {
   name         = "cpu_count"
   display_name = "CPU Count"
@@ -6,7 +26,7 @@ data "coder_parameter" "cpu_count" {
   type         = "number"
   icon         = "/icon/memory.svg"
   mutable      = true
-  order        = 0
+  order        = 1
 
   validation {
     min       = 1
@@ -23,7 +43,7 @@ data "coder_parameter" "ram_amount" {
   type         = "number"
   icon         = "/icon/container.svg"
   mutable      = true
-  order        = 1
+  order        = 2
 
   validation {
     min       = 1
