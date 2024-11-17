@@ -1,6 +1,6 @@
 resource "libvirt_cloudinit_disk" "init_node1" {
   name      = lower("${local.instance_name}.init.iso")
-  user_data = data.template_file.user_data.rendered
+  user_data = data.template_file.user_data_node1.rendered
   pool      = "working"
 }
 
