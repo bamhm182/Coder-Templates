@@ -8,8 +8,8 @@ resource "libvirt_cloudinit_disk" "init_node4" {
 
 data "template_file" "user_data_node4" {
   template = templatefile("${path.module}/cloudinit.cfg.template", {
-    password_hash   = htpasswd_password.user.sha512,
-    authorized_keys = chomp(tls_private_key.ssh_key.public_key_openssh),
+    password_hash   = htpasswd_password.user_node4.sha512,
+    authorized_keys = chomp(tls_private_key.ssh_key_node4.public_key_openssh),
   })
 }
 
