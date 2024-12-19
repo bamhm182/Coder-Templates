@@ -15,9 +15,9 @@ resource "guacamole_connection_ssh" "node0" {
 }
 
 resource "coder_app" "guacamole_ssh_node0" {
-  agent_id = coder_agent.node0.id
+  agent_id = coder_agent.kubernetes.id
   count = data.coder_workspace.me.start_count
-  display_name = "SSH Terminal"
+  display_name = "SSH (node0)"
   slug = "guacsshnode0"
   icon = "/icon/apache-guacamole.svg"
   external = true
@@ -47,9 +47,9 @@ resource "guacamole_connection_ssh" "node1" {
 }
 
 resource "coder_app" "guacamole_ssh_node1" {
-  agent_id = coder_agent.node1.id
+  agent_id = coder_agent.kubernetes.id
   count = data.coder_workspace.me.start_count
-  display_name = "SSH Terminal"
+  display_name = "SSH (node1)"
   slug = "guacsshnode1"
   icon = "/icon/apache-guacamole.svg"
   external = true
@@ -79,9 +79,9 @@ resource "guacamole_connection_ssh" "node2" {
 }
 
 resource "coder_app" "guacamole_ssh_node2" {
-  agent_id = coder_agent.node2.id
+  agent_id = coder_agent.kubernetes.id
   count = data.coder_workspace.me.start_count
-  display_name = "SSH Terminal"
+  display_name = "SSH (node2)"
   slug = "guacsshnode2"
   icon = "/icon/apache-guacamole.svg"
   external = true
@@ -111,9 +111,9 @@ resource "guacamole_connection_ssh" "node3" {
 }
 
 resource "coder_app" "guacamole_ssh_node3" {
-  agent_id = coder_agent.node3.id
+  agent_id = coder_agent.kubernetes.id
   count = data.coder_workspace.me.start_count
-  display_name = "SSH Terminal"
+  display_name = "SSH (node3)"
   slug = "guacsshnode3"
   icon = "/icon/apache-guacamole.svg"
   external = true
@@ -143,9 +143,9 @@ resource "guacamole_connection_ssh" "node4" {
 }
 
 resource "coder_app" "guacamole_ssh_node4" {
-  agent_id = coder_agent.node4.id
+  agent_id = coder_agent.kubernetes.id
   count = data.coder_workspace.me.start_count
-  display_name = "SSH Terminal"
+  display_name = "SSH (node4)"
   slug = "guacsshnode4"
   icon = "/icon/apache-guacamole.svg"
   external = true

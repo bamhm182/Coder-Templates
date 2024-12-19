@@ -86,7 +86,7 @@ resource "null_resource" "scripts_node1" {
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
-      "echo ${coder_agent.node1.token} > ~/.config/coder/token",
+      "echo 'token' > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*"
     ]
 
