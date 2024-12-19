@@ -1,9 +1,11 @@
-resource "guacamole_connection_ssh" "node" {
-  count = data.coder_workspace.me.start_count == 0 ? 0 : length(local.coder_agents)
-  name = "${data.coder_workspace.me.name} K3s node${count.index} Terminal (${data.coder_workspace_owner.me.name})"
+# ========== NODE0 ==========
+
+resource "guacamole_connection_ssh" "node0" {
+  count = data.coder_workspace.me.start_count
+  name = "${data.coder_workspace.me.name} K3s node0 Terminal (${data.coder_workspace_owner.me.name})"
   parent_identifier = "ROOT"
   parameters {
-    hostname = libvirt_domain.node[count.index].network_interface.0.addresses.0
+    hostname = libvirt_domain.node0.network_interface.0.addresses.0
     port = 22
     username = "user"
     private_key = tls_private_key.ssh_key[count.index].private_key_openssh
@@ -13,7 +15,7 @@ resource "guacamole_connection_ssh" "node" {
 }
 
 resource "coder_app" "guacamole_ssh_node0" {
-  agent_id = local.coder_agents[0].id
+  agent_id = local.coder_agents_node0.id
   count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
   slug = "guacsshnode0"
@@ -24,8 +26,24 @@ resource "coder_app" "guacamole_ssh_node0" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node0.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
+}
+
+# ========== NODE1 ==========
+
+resource "guacamole_connection_ssh" "node1" {
+  count = data.coder_workspace.me.start_count
+  name = "${data.coder_workspace.me.name} K3s node1 Terminal (${data.coder_workspace_owner.me.name})"
+  parent_identifier = "ROOT"
+  parameters {
+    hostname = libvirt_domain.node1.network_interface.0.addresses.0
+    port = 22
+    username = "user"
+    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
+    recording_auto_create_path = "true"
+  }
 }
 
 resource "coder_app" "guacamole_ssh_node1" {
@@ -40,8 +58,24 @@ resource "coder_app" "guacamole_ssh_node1" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[1].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node1.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
+}
+
+# ========== NODE2 ==========
+
+resource "guacamole_connection_ssh" "node2" {
+  count = data.coder_workspace.me.start_count
+  name = "${data.coder_workspace.me.name} K3s node2 Terminal (${data.coder_workspace_owner.me.name})"
+  parent_identifier = "ROOT"
+  parameters {
+    hostname = libvirt_domain.node2.network_interface.0.addresses.0
+    port = 22
+    username = "user"
+    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
+    recording_auto_create_path = "true"
+  }
 }
 
 resource "coder_app" "guacamole_ssh_node2" {
@@ -56,8 +90,24 @@ resource "coder_app" "guacamole_ssh_node2" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[2].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node2.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
+}
+
+# ========== NODE3 ==========
+
+resource "guacamole_connection_ssh" "node3" {
+  count = data.coder_workspace.me.start_count
+  name = "${data.coder_workspace.me.name} K3s node3 Terminal (${data.coder_workspace_owner.me.name})"
+  parent_identifier = "ROOT"
+  parameters {
+    hostname = libvirt_domain.node3.network_interface.0.addresses.0
+    port = 22
+    username = "user"
+    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
+    recording_auto_create_path = "true"
+  }
 }
 
 resource "coder_app" "guacamole_ssh_node3" {
@@ -72,8 +122,24 @@ resource "coder_app" "guacamole_ssh_node3" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[3].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node3.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
+}
+
+# ========== NODE4 ==========
+
+resource "guacamole_connection_ssh" "node4" {
+  count = data.coder_workspace.me.start_count
+  name = "${data.coder_workspace.me.name} K3s node4 Terminal (${data.coder_workspace_owner.me.name})"
+  parent_identifier = "ROOT"
+  parameters {
+    hostname = libvirt_domain.node4.network_interface.0.addresses.0
+    port = 22
+    username = "user"
+    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
+    recording_auto_create_path = "true"
+  }
 }
 
 resource "coder_app" "guacamole_ssh_node4" {
@@ -88,6 +154,6 @@ resource "coder_app" "guacamole_ssh_node4" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node[4].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node4.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }

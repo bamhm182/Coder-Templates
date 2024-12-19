@@ -2,16 +2,6 @@ data "coder_workspace" "me" {}
 
 data "coder_workspace_owner" "me" {}
 
-locals {
-  coder_agents = [
-    coder_agent.node0,
-    coder_agent.node1,
-    coder_agent.node2,
-    coder_agent.node3,
-    coder_agent.node4
-  ]
-}
-
 resource "coder_agent" "node0" {
   os           = "linux"
   arch         = "amd64"

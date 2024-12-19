@@ -2,7 +2,7 @@
 display_name: Windows (libvirt)
 description: Create a Windows Virtual Machine with libvirt
 default_ttl: 24h
-icon: https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/windows.svg
+icon: https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/windows.svg
 maintainer_github: bamhm182
 verified: true
 tags: [windows, kvm, libvirt]
