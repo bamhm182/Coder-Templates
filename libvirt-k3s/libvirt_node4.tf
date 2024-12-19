@@ -20,7 +20,7 @@ resource "libvirt_volume" "root_node4" {
   count            = data.coder_workspace.me.start_count
   pool             = "working"
   format           = "qcow2"
-  base_volume_name = "nixos-k3s-server.qcow2"
+  base_volume_name = "nixos-k3s-agent.qcow2"
   base_volume_pool = "baselines"
 }
 
