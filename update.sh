@@ -8,7 +8,7 @@ main() {
 setup() {
   SCRIPT_PATH=$(readlink -f "${BASH_SOURCE:-$0}")
   BASE_DIR=$(dirname "${SCRIPT_PATH}")
-  TEMPLATES=$(find "${BASE_DIR}" -maxdepth 2 -name "main.tf" | awk -F'/' '{print $(NF-1)}')
+  TEMPLATES=$(find "${BASE_DIR}" -maxdepth 2 -name "*.tf" | awk -F'/' '{print $(NF-1)}' | sort -u)
   TIMESTAMP=$(date '+%Y%m%d%H%M%S')
   [ -n "${1}" ] && TEMPLATES=${1}
 }
