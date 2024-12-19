@@ -5,7 +5,7 @@ resource "guacamole_connection_ssh" "node0" {
   name = "${data.coder_workspace.me.name} K3s node0 Terminal (${data.coder_workspace_owner.me.name})"
   parent_identifier = "ROOT"
   parameters {
-    hostname = libvirt_domain.node0.network_interface.0.addresses.0
+    hostname = libvirt_domain.node0[0].network_interface.0.addresses.0
     port = 22
     username = "user"
     private_key = tls_private_key.ssh_key_node0[0].private_key_openssh
@@ -37,7 +37,7 @@ resource "guacamole_connection_ssh" "node1" {
   name = "${data.coder_workspace.me.name} K3s node1 Terminal (${data.coder_workspace_owner.me.name})"
   parent_identifier = "ROOT"
   parameters {
-    hostname = libvirt_domain.node1.network_interface.0.addresses.0
+    hostname = libvirt_domain.node1[0].network_interface.0.addresses.0
     port = 22
     username = "user"
     private_key = tls_private_key.ssh_key_node1[0].private_key_openssh
@@ -69,7 +69,7 @@ resource "guacamole_connection_ssh" "node2" {
   name = "${data.coder_workspace.me.name} K3s node2 Terminal (${data.coder_workspace_owner.me.name})"
   parent_identifier = "ROOT"
   parameters {
-    hostname = libvirt_domain.node2.network_interface.0.addresses.0
+    hostname = libvirt_domain.node2[0].network_interface.0.addresses.0
     port = 22
     username = "user"
     private_key = tls_private_key.ssh_key_node2[0].private_key_openssh
@@ -101,7 +101,7 @@ resource "guacamole_connection_ssh" "node3" {
   name = "${data.coder_workspace.me.name} K3s node3 Terminal (${data.coder_workspace_owner.me.name})"
   parent_identifier = "ROOT"
   parameters {
-    hostname = libvirt_domain.node3.network_interface.0.addresses.0
+    hostname = libvirt_domain.node3[0].network_interface.0.addresses.0
     port = 22
     username = "user"
     private_key = tls_private_key.ssh_key_node3[0].private_key_openssh
@@ -133,7 +133,7 @@ resource "guacamole_connection_ssh" "node4" {
   name = "${data.coder_workspace.me.name} K3s node4 Terminal (${data.coder_workspace_owner.me.name})"
   parent_identifier = "ROOT"
   parameters {
-    hostname = libvirt_domain.node4.network_interface.0.addresses.0
+    hostname = libvirt_domain.node4[0].network_interface.0.addresses.0
     port = 22
     username = "user"
     private_key = tls_private_key.ssh_key_node4[0].private_key_openssh

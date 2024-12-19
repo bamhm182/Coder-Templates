@@ -79,7 +79,7 @@ resource "libvirt_domain" "node4" {
 
 resource "null_resource" "scripts_node4" {
   count = data.coder_workspace.me.start_count
-  depends_on = [libvirt_domain.node4]
+  depends_on = [libvirt_domain.node4[0]]
 
   provisioner "remote-exec" {
     inline = [
