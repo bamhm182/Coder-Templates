@@ -8,7 +8,7 @@ resource "guacamole_connection_ssh" "node0" {
     hostname = libvirt_domain.node0.network_interface.0.addresses.0
     port = 22
     username = "user"
-    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    private_key = tls_private_key.ssh_key_node0[0].private_key_openssh
     recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
     recording_auto_create_path = "true"
   }
@@ -40,7 +40,7 @@ resource "guacamole_connection_ssh" "node1" {
     hostname = libvirt_domain.node1.network_interface.0.addresses.0
     port = 22
     username = "user"
-    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    private_key = tls_private_key.ssh_key_node1[0].private_key_openssh
     recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
     recording_auto_create_path = "true"
   }
@@ -72,7 +72,7 @@ resource "guacamole_connection_ssh" "node2" {
     hostname = libvirt_domain.node2.network_interface.0.addresses.0
     port = 22
     username = "user"
-    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    private_key = tls_private_key.ssh_key_node2[0].private_key_openssh
     recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
     recording_auto_create_path = "true"
   }
@@ -104,7 +104,7 @@ resource "guacamole_connection_ssh" "node3" {
     hostname = libvirt_domain.node3.network_interface.0.addresses.0
     port = 22
     username = "user"
-    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    private_key = tls_private_key.ssh_key_node3[0].private_key_openssh
     recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
     recording_auto_create_path = "true"
   }
@@ -136,7 +136,7 @@ resource "guacamole_connection_ssh" "node4" {
     hostname = libvirt_domain.node4.network_interface.0.addresses.0
     port = 22
     username = "user"
-    private_key = tls_private_key.ssh_key[count.index].private_key_openssh
+    private_key = tls_private_key.ssh_key_node4[0].private_key_openssh
     recording_path = "$${HISTORY_PATH}/$${HISTORY_UUID}"
     recording_auto_create_path = "true"
   }
