@@ -8,7 +8,7 @@ resource "random_integer" "password_length_node0" {
 
 resource "random_password" "user_node0" {
   count = data.coder_workspace.me.start_count
-  length = random_integer.password_length_node0.result
+  length = random_integer.password_length_node0[0].result
 }
 
 resource "random_password" "user_salt_node0" {
@@ -19,8 +19,8 @@ resource "random_password" "user_salt_node0" {
 
 resource "htpasswd_password" "user_node0" {
   count = data.coder_workspace.me.start_count
-  password = random_password.user_node0.result
-  salt = random_password.user_salt_node0.result
+  password = random_password.user_node0[0].result
+  salt = random_password.user_salt_node0[0].result
 }
 
 resource "tls_private_key" "ssh_key_node0" {
@@ -38,7 +38,7 @@ resource "random_integer" "password_length_node1" {
 
 resource "random_password" "user_node1" {
   count = data.coder_workspace.me.start_count
-  length = random_integer.password_length_node1.result
+  length = random_integer.password_length_node1[0].result
 }
 
 resource "random_password" "user_salt_node1" {
@@ -49,8 +49,8 @@ resource "random_password" "user_salt_node1" {
 
 resource "htpasswd_password" "user_node1" {
   count = data.coder_workspace.me.start_count
-  password = random_password.user_node1.result
-  salt = random_password.user_salt_node1.result
+  password = random_password.user_node1[0].result
+  salt = random_password.user_salt_node1[0].result
 }
 
 resource "tls_private_key" "ssh_key_node1" {
@@ -68,7 +68,7 @@ resource "random_integer" "password_length_node2" {
 
 resource "random_password" "user_node2" {
   count = data.coder_workspace.me.start_count
-  length = random_integer.password_length_node2.result
+  length = random_integer.password_length_node2[0].result
 }
 
 resource "random_password" "user_salt_node2" {
@@ -79,8 +79,8 @@ resource "random_password" "user_salt_node2" {
 
 resource "htpasswd_password" "user_node2" {
   count = data.coder_workspace.me.start_count
-  password = random_password.user_node2.result
-  salt = random_password.user_salt_node2.result
+  password = random_password.user_node2[0].result
+  salt = random_password.user_salt_node2[0].result
 }
 
 resource "tls_private_key" "ssh_key_node2" {
@@ -98,7 +98,7 @@ resource "random_integer" "password_length_node3" {
 
 resource "random_password" "user_node3" {
   count = data.coder_workspace.me.start_count
-  length = random_integer.password_length_node3.result
+  length = random_integer.password_length_node3[0].result
 }
 
 resource "random_password" "user_salt_node3" {
@@ -109,8 +109,8 @@ resource "random_password" "user_salt_node3" {
 
 resource "htpasswd_password" "user_node3" {
   count = data.coder_workspace.me.start_count
-  password = random_password.user_node3.result
-  salt = random_password.user_salt_node3.result
+  password = random_password.user_node3[0].result
+  salt = random_password.user_salt_node3[0].result
 }
 
 resource "tls_private_key" "ssh_key_node3" {
@@ -127,7 +127,7 @@ resource "random_integer" "password_length_node4" {
 
 resource "random_password" "user_node4" {
   count = data.coder_workspace.me.start_count
-  length = random_integer.password_length_node4.result
+  length = random_integer.password_length_node4[0].result
 }
 
 resource "random_password" "user_salt_node4" {
@@ -138,8 +138,8 @@ resource "random_password" "user_salt_node4" {
 
 resource "htpasswd_password" "user_node4" {
   count = data.coder_workspace.me.start_count
-  password = random_password.user_node4.result
-  salt = random_password.user_salt_node4.result
+  password = random_password.user_node4[0].result
+  salt = random_password.user_salt_node4[0].result
 }
 
 resource "tls_private_key" "ssh_key_node4" {
