@@ -15,7 +15,7 @@ resource "guacamole_connection_ssh" "node0" {
 }
 
 resource "coder_app" "guacamole_ssh_node0" {
-  agent_id = local.coder_agents_node0.id
+  agent_id = coder_agent.node0.id
   count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
   slug = "guacsshnode0"
@@ -26,7 +26,7 @@ resource "coder_app" "guacamole_ssh_node0" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node0.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node0[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
 
@@ -47,7 +47,7 @@ resource "guacamole_connection_ssh" "node1" {
 }
 
 resource "coder_app" "guacamole_ssh_node1" {
-  agent_id = local.coder_agents[1].id
+  agent_id = coder_agent.node1.id
   count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
   slug = "guacsshnode1"
@@ -58,7 +58,7 @@ resource "coder_app" "guacamole_ssh_node1" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node1.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node1[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
 
@@ -79,7 +79,7 @@ resource "guacamole_connection_ssh" "node2" {
 }
 
 resource "coder_app" "guacamole_ssh_node2" {
-  agent_id = local.coder_agents[2].id
+  agent_id = coder_agent.node2.id
   count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
   slug = "guacsshnode2"
@@ -90,7 +90,7 @@ resource "coder_app" "guacamole_ssh_node2" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node2.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node2[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
 
@@ -111,7 +111,7 @@ resource "guacamole_connection_ssh" "node3" {
 }
 
 resource "coder_app" "guacamole_ssh_node3" {
-  agent_id = local.coder_agents[3].id
+  agent_id = coder_agent.node3.id
   count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
   slug = "guacsshnode3"
@@ -122,7 +122,7 @@ resource "coder_app" "guacamole_ssh_node3" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node3.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node3[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
 
@@ -143,7 +143,7 @@ resource "guacamole_connection_ssh" "node4" {
 }
 
 resource "coder_app" "guacamole_ssh_node4" {
-  agent_id = local.coder_agents[4].id
+  agent_id = coder_agent.node4.id
   count = data.coder_workspace.me.start_count
   display_name = "SSH Terminal"
   slug = "guacsshnode4"
@@ -154,6 +154,6 @@ resource "coder_app" "guacamole_ssh_node4" {
     "%s%s%s",
     replace(data.coder_workspace.me.access_url, "coder", "guacamole"),
     "/#/client/",
-    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node4.identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
+    replace(base64encode(format("%s%s%s%s%s", guacamole_connection_ssh.node4[0].identifier, base64decode("AA=="), "c", base64decode("AA=="), "postgresql")), "=", "")
   )
 }
