@@ -11,7 +11,7 @@ data "template_file" "user_data_node3" {
   count             = data.coder_workspace.me.start_count
   template          = templatefile("${path.module}/cloudinit.cfg.template", {
     password_hash   = htpasswd_password.user_node3[0].sha512,
-    authorized_keys = chomp(tls_private_key.ssh_key_node3.public_key_openssh),
+    authorized_keys = chomp(tls_private_key.ssh_key_node3[0].public_key_openssh),
   })
 }
 
