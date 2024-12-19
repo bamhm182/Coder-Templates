@@ -1,7 +1,7 @@
 resource "libvirt_cloudinit_disk" "init_node1" {
   count      = data.coder_workspace.me.start_count
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-init-node1.iso")
-  user_data  = data.template_file.user_data_node1.rendered
+  user_data  = data.template_file.user_data_node1[0].rendered
   pool       = "working"
 }
 
@@ -10,7 +10,7 @@ resource "libvirt_cloudinit_disk" "init_node1" {
 data "template_file" "user_data_node1" {
   count             = data.coder_workspace.me.start_count
   template          = templatefile("${path.module}/cloudinit.cfg.template", {
-    password_hash   = htpasswd_password.user_node1.sha512,
+    password_hash   = htpasswd_password.user_node1[0].sha512,
     authorized_keys = chomp(tls_private_key.ssh_key_node1.public_key_openssh),
   })
 }
@@ -41,18 +41,18 @@ resource "libvirt_domain" "node1" {
   memory     = (data.coder_parameter.ram_amount.value * 1024)
   vcpu       = data.coder_parameter.cpu_count.value
   qemu_agent = true
-  cloudinit  = libvirt_cloudinit_disk.init_node1.id
+  cloudinit  = libvirt_cloudinit_disk.init_node1[0].id
 
   timeouts {
     create = "1m"
   }
 
   disk {
-    volume_id = libvirt_volume.root_node1.id
+    volume_id = libvirt_volume.root_node1[0].id
   }
 
   disk {
-    volume_id = libvirt_volume.home_node1.id
+    volume_id = libvirt_volume.home_node1[0].id
   }
 
   boot_device {
@@ -79,23 +79,23 @@ resource "libvirt_domain" "node1" {
 
 resource "null_resource" "scripts_node1" {
   count = data.coder_workspace.me.start_count
-  depends_on = [libvirt_domain.node]
+  depends_on = [libvirt_domain.node1]
 
   provisioner "remote-exec" {
     inline = [
       "install -d -m 0700 ~/.config/coder",
       "rm ~/.config/coder/*",
       "echo ${data.coder_workspace.me.access_url} > ~/.config/coder/url",
-      "echo ${coder_agent.node1.token} > ~/.config/coder/token",
+      "echo ${coder_agent.node1[0].token} > ~/.config/coder/token",
       "chmod 0600 ~/.config/coder/*"
     ]
 
     connection {
       type        = "ssh"
       user        = "user"
-      host        = flatten([for nic in libvirt_domain.node1.network_interface :
+      host        = flatten([for nic in libvirt_domain.node1[0].network_interface :
                               [for addr in nic.addresses : addr if can(regex("^\\d+\\.\\d+\\.\\d+\\.\\d+$", addr))]])[0]
-      private_key = tls_private_key.ssh_key_node1.private_key_openssh
+      private_key = tls_private_key.ssh_key_node1[0].private_key_openssh
       timeout     = "1m"
     }
   }
