@@ -65,7 +65,7 @@ resource "libvirt_domain" "node0" {
   }
 
   network_interface {
-    network_id = libvirt_network.k3snet.id
+    network_id = libvirt_network.k3snet[0].id
     mac = "6E:6F:64:65:73:00"
   }
 
