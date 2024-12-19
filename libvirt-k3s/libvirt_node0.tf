@@ -35,13 +35,7 @@ resource "libvirt_volume" "home_node0" {
 
 # ---
 
-resource "libvirt_network" "k3snet" {
-  name      = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3snet")
-  count     = data.coder_workspace.me.start_count
-  mode      = "none"
-}
-
-resource "libvirt_domain" "node" {
+resource "libvirt_domain" "node0" {
   name       = lower("coder-${data.coder_workspace_owner.me.name}-${data.coder_workspace.me.name}-k3s-node0")
   count      = data.coder_workspace.me.start_count
   memory     = (data.coder_parameter.ram_amount.value * 1024)
