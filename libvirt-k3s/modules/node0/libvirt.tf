@@ -65,7 +65,7 @@ resource "libvirt_domain" "node0" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(var.owner)}-${lower(var.ws_name)}-node0"
+    source  = "/var/lib/libvirt/shares/coder-${lower(var.owner)}-${lower(var.ws_name)}-node0-nixos-${var.flavor}-server"
     target  = "out"
     readonly = false
   }

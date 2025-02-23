@@ -61,7 +61,7 @@ resource "libvirt_domain" "main" {
   }
 
   filesystem {
-    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}"
+    source  = "/var/lib/libvirt/shares/coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}-${data.coder_parameter.baseline_image.value}"
     target  = "out"
     readonly = false
   }
