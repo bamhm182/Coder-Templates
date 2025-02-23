@@ -37,7 +37,7 @@ resource "coder_metadata" "libvirt_volume_root" {
 }
 
 resource "libvirt_volume" "home" {
-  name   = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}.home.qcow2")
+  name   = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-${data.coder_parameter.baseline_image.value}.home.qcow2")
   pool   = "working"
   format = "qcow2"
   base_volume_name = "home.ext4.qcow2"

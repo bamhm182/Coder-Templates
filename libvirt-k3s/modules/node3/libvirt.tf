@@ -22,7 +22,7 @@ resource "libvirt_volume" "root_node3" {
 }
 
 resource "libvirt_volume" "home_node3" {
-  name             = lower("${local.instance_name}.home.qcow2")
+  name             = lower("${local.instance_name}-nixos-${var.flavor}-${var.type}.home.qcow2")
   pool             = "working"
   format           = "qcow2"
   base_volume_name = "home.ext4.qcow2"

@@ -30,7 +30,7 @@ resource "libvirt_volume" "netboot_hdd" {
 }
 
 resource "libvirt_volume" "home" {
-  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}.home.qcow2")
+  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-nixos-netboot.home.qcow2")
   pool             = "working"
   format           = "qcow2"
   base_volume_name = "home.ext4.qcow2"
