@@ -1,5 +1,5 @@
 resource "libvirt_volume" "root" {
-  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}.qcow2")
+  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-${data.coder_parameter.baseline_image.value}.qcow2")
   pool             = "working"
   format           = "qcow2"
   base_volume_name = "${data.coder_parameter.baseline_image.value}.qcow2"

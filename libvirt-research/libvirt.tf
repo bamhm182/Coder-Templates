@@ -22,7 +22,7 @@ data "template_file" "user_data" {
 }
 
 resource "libvirt_volume" "root" {
-  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}.qcow2")
+  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-${data.coder_parameter.baseline_image.value}.qcow2")
   count            = data.coder_workspace.me.start_count
   pool             = "working"
   format           = "qcow2"
@@ -50,7 +50,7 @@ resource "coder_metadata" "libvirt_volume_home" {
 }
 
 resource "libvirt_volume" "router" {
-  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}.router.qcow2")
+  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-${data.coder_parameter.router_image.value}.qcow2")
   count            = data.coder_workspace.me.start_count
   pool             = "working"
   format           = "qcow2"

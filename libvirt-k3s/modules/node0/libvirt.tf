@@ -14,7 +14,7 @@ data "template_file" "user_data_node0" {
 }
 
 resource "libvirt_volume" "root_node0" {
-  name             = lower("${local.instance_name}.qcow2")
+  name             = lower("${local.instance_name}-nixos-${var.flavor}-${var.type}.qcow2")
   pool             = "working"
   format           = "qcow2"
   base_volume_name = "nixos-${var.flavor}-${var.type}.qcow2"

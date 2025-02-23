@@ -22,7 +22,7 @@ data "template_file" "user_data" {
 }
 
 resource "libvirt_volume" "netboot_hdd" {
-  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}.qcow2")
+  name             = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-nixos-netboot.qcow2")
   pool             = "working"
   format           = "qcow2"
   base_volume_name = "nixos-netboot.qcow2"
