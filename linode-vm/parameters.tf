@@ -162,37 +162,37 @@ data "coder_parameter" "linode_image" {
   option {
     name = "AlmaLinux 8"
     value = "linode/almalinux8"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/almalinux.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/almalinux.svg"
   }
   option {
     name = "AlmaLinux 9"
     value = "linode/almalinux9"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/almalinux.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/almalinux.svg"
   }
   option {
     name = "Alpine 3.16"
     value = "linode/alpine3.16"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/alpinelinux.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/alpinelinux.svg"
   }
   option {
     name = "Alpine 3.17"
     value = "linode/alpine3.17"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/alpinelinux.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/alpinelinux.svg"
   }
   option {
     name = "Alpine 3.18"
     value = "linode/alpine3.18"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/alpinelinux.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/alpinelinux.svg"
   }
   option {
     name = "Alpine 3.19"
     value = "linode/alpine3.19"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/alpinelinux.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/alpinelinux.svg"
   }
   option {
     name = "Arch"
     value = "linode/arch"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/archlinux.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/archlinux.svg"
   }
   option {
     name = "CentOS 7"
@@ -242,47 +242,47 @@ data "coder_parameter" "linode_image" {
   option {
     name = "Gentoo"
     value = "linode/gentoo"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/gentoo.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/gentoo.svg"
   }
   option {
     name = "Kali"
     value = "linode/kali"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/kali.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/kali.svg"
   }
   option {
     name = "Kube 1.26.1 (Debian 11)"
     value = "linode/debian11-kube-v1.26.1"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/kubernetes.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/kubernetes.svg"
   }
   option {
     name = "Kube 1.26.3 (Debian 11)"
     value = "linode/debian11-kube-v1.26.3"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/kubernetes.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/kubernetes.svg"
   }
   option {
     name = "Kube 1.26.12 (Debian 11)"
     value = "linode/debian11-kube-v1.26.12"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/kubernetes.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/kubernetes.svg"
   }
   option {
     name = "Kube 1.27.5 (Debian 11)"
     value = "linode/debian11-kube-v1.27.5"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/kubernetes.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/kubernetes.svg"
   }
   option {
     name = "Kube 1.27.9 (Debian 11)"
     value = "linode/debian11-kube-v1.27.9"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/kubernetes.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/kubernetes.svg"
   }
   option {
     name = "Kube 1.28.3 (Debian 11)"
     value = "linode/debian11-kube-v1.28.3"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/kubernetes.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/kubernetes.svg"
   }
   option {
     name = "OpenSUSE Leap 15.5"
     value = "linode/opensuse15.5"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/opensuse.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/opensuse.svg"
   }
   option {
     name = "Rocky Linux 8"
@@ -297,7 +297,7 @@ data "coder_parameter" "linode_image" {
   option {
     name = "Slackware 15.0"
     value = "linode/slackware15.0"
-    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/slackware.svg"
+    icon = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/slackware.svg"
   }
   option {
     name = "Ubuntu 16.04 LTS"

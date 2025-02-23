@@ -2,7 +2,7 @@
 display_name: Virtual Machine (Linode)
 description: Create a Virtual Machine on Linode
 default_ttl: 1h
-icon: https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/akamai.svg
+icon: https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/akamai.svg
 maintainer_github: bamhm182
 tags: [vm, linux, linode]
 ---

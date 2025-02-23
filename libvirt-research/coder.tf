@@ -42,7 +42,7 @@ resource "coder_app" "guacamole_rdp" {
   count        = length(guacamole_connection_rdp.main)
   display_name = "Desktop"
   slug         = "guacamolerdp"
-  icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
+  icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/guacamole.svg"
   external     = true
 
   url = format(
@@ -58,7 +58,7 @@ resource "coder_app" "guacamole_ssh" {
   count        = length(guacamole_connection_ssh.main)
   display_name = "Terminal"
   slug         = "guacamolessh"
-  icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/wip-initial/icons/guacamole.svg"
+  icon         = "https://raw.githubusercontent.com/bamhm182/Coder-Templates/main/icons/guacamole.svg"
   external     = true
   url = format(
     "%s%s%s",
