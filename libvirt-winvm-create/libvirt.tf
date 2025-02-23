@@ -1,6 +1,6 @@
 resource "libvirt_cloudinit_disk" "init" {
   count     = data.coder_workspace.me.start_count
-  name      = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-init.iso")
+  name      = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-nixos-netboot.init.iso")
   user_data = data.template_file.user_data[0].rendered
   pool      = "working"
 }
@@ -30,7 +30,7 @@ resource "libvirt_volume" "netboot_hdd" {
 }
 
 resource "libvirt_volume" "home" {
-  name   = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-${data.coder_parameter.baseline_image.value}.home.qcow2")
+  name   = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-nixos-netboot.home.qcow2")
   pool   = "working"
   format = "qcow2"
   base_volume_name = "home.ext4.qcow2"

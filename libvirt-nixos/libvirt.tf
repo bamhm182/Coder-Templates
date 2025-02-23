@@ -1,6 +1,6 @@
 resource "libvirt_cloudinit_disk" "init" {
   count = data.coder_workspace.me.start_count
-  name      = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-init.iso")
+  name      = lower("coder-${data.coder_workspace.me.owner}-${data.coder_workspace.me.name}-${data.coder_parameter.baseline_image.value}.init.iso")
   user_data = data.template_file.user_data[0].rendered
   pool      = "working"
 }
